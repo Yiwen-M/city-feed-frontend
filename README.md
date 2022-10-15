@@ -47,7 +47,7 @@ npm start
 
 * [ReactJS](https://reactjs.org/) - JS runtime environment
 * [Redux](https://redux.js.org/) - JavaScript library for managing and centralizing application state
-* [Antd](https://ant.design/) - An enterprise-class UI design language and React UI library with a set of high-quality React components
+* [MUI](https://mui.com/) - A fully loaded UI component library with a comprehensive suite of UI tools
 <br>
 
 ## Future Work
