@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiAppBar from '@mui/material/AppBar';
 import MuiDrawer from '@mui/material/Drawer';
@@ -23,6 +24,7 @@ import {
   MessageIcon,
   SettingIcon,
 } from './HeaderStyles';
+import { Link } from '@mui/material';
 
 const drawerWidth = 300;
 
@@ -131,7 +133,6 @@ const menuItems = [
 ];
 
 const SideMenu = (props) => {
-  const theme = useTheme();
   const [open, setOpen] = useState(false);
 
   const handleMenuOpen = () => {
@@ -142,13 +143,26 @@ const SideMenu = (props) => {
     setOpen(false);
   };
 
+  let navigate = useNavigate();
+
+  const siteNameRouteHandler = () => {
+    let path = '/discover';
+    navigate(path);
+  };
+
+  const userIconRouteHandler = () => {
+    let path = '/userProfile';
+    navigate(path);
+  };
+
   const menuBtnArr = menuItems.map((item) => {
     const { id, url, text, icon } = item;
     return (
       <List>
         <ListItem key={id} disablePadding sx={{ display: 'block' }}>
           <ListItemButton
-            href={{ url }}
+            component={Link}
+            to={url}
             sx={{
               marginTop: '50px',
               minHeight: 90,
@@ -163,7 +177,7 @@ const SideMenu = (props) => {
                 justifyContent: open ? 'left' : 'center',
               }}
             >
-              {icon}
+              <Link to={url}> {icon}</Link>
             </ListItemIcon>
 
             <ListItemText
@@ -201,8 +215,8 @@ const SideMenu = (props) => {
           >
             <SideMenuIcon />
           </IconButton>
-          <SiteName>City Feed</SiteName>
-          <ProfileIcon />
+          <SiteName onClick={siteNameRouteHandler}>City Feed</SiteName>
+          <ProfileIcon onClick={userIconRouteHandler} />
         </HeaderStyled>
       </HeaderBar>
 

@@ -51,6 +51,7 @@ const CloseMenuIcon = styled(ChevronLeftIcon)`
 const ProfileIcon = styled(FaceRoundedIcon)`
   position: absolute;
   right: 4rem;
+  cursor: pointer;
   color: white;
   font-size: 36px !important;
 `;
