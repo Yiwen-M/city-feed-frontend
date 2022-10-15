@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiAppBar from '@mui/material/AppBar';
@@ -24,7 +24,6 @@ import {
   MessageIcon,
   SettingIcon,
 } from './HeaderStyles';
-import { Link } from '@mui/material';
 
 const drawerWidth = 300;
 

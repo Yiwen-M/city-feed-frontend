@@ -8,7 +8,6 @@ import AddReactionRoundedIcon from '@mui/icons-material/AddReactionRounded'; //f
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'; //favorite
 import SendTimeExtensionRoundedIcon from '@mui/icons-material/SendTimeExtensionRounded'; //message
 import SettingsSuggestRoundedIcon from '@mui/icons-material/SettingsSuggestRounded'; //setting
-import ListItemText from '@mui/material/ListItemText';
 
 const HeaderStyled = styled(Toolbar)`
   position: fixed;
