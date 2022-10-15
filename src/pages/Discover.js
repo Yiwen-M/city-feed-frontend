@@ -1,14 +1,15 @@
 import Header from '../components/UI/Header/Header';
 import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
+import PostCard from '../components/UI/Card/Card';
+import CreateButton from '../components/UI/CreateButton/CreateButton';
 
 const Discover = () => {
   return (
     <>
       <Header />
       <PageWrapper>
-        <h1 style={{ marginTop: '200px', marginLeft: '500px' }}>
-          All posts will be here
-        </h1>
+        <PostCard />
+        <CreateButton />
       </PageWrapper>
     </>
   );

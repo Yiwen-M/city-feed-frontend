@@ -6,7 +6,7 @@ const Setting = () => {
     <>
       <Header />
       <PageWrapper>
-        <h1 style={{ marginTop: '200px', marginLeft: '500px' }}>
+        <h1>
           Setting page will be here
         </h1>
       </PageWrapper>

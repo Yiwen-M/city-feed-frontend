@@ -29,7 +29,6 @@ const SiteName = styled.h1`
   position: absolute;
   left: 210px;
   cursor: pointer;
-  font-family: 'Andale Mono';
   font-weight: 600;
   font-size: 30px;
   color: white;

@@ -6,8 +6,8 @@ const NotFound = () => {
     <>
       <Header />
       <PageWrapper>
-        <h1 style={{ marginTop: '200px', marginLeft: '500px' }}>
-          Page not found!{' '}
+        <h1>
+          Page not found!
         </h1>
       </PageWrapper>
     </>

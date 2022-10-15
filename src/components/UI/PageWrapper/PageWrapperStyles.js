@@ -7,6 +7,9 @@ const WrapperDiv = styled.div`
   left: 180px;
   top: 5rem;
   background-color: none;
+  padding-top: 100px;
+  padding-left: 400px;
+  padding-bottom: 300px;
 `;
 
 export { WrapperDiv };

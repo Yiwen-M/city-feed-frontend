@@ -6,7 +6,7 @@ const MessageCenter = () => {
     <>
       <Header />
       <PageWrapper>
-        <h1 style={{ marginTop: '200px', marginLeft: '500px' }}>
+        <h1>
           Messages will be here
         </h1>
       </PageWrapper>

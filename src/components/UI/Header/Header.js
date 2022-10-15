@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiAppBar from '@mui/material/AppBar';
@@ -182,7 +183,6 @@ const SideMenu = (props) => {
             <ListItemText
               primary={text}
               primaryTypographyProps={{
-                fontFamily: 'Andale Mono',
                 fontSize: '20px',
                 fontWeight: 'bold',
               }}
