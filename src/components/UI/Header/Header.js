@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import MuiAppBar from '@mui/material/AppBar';
-import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import IconButton from '@mui/material/IconButton';
@@ -16,7 +13,8 @@ import ListItemText from '@mui/material/ListItemText';
 import {
   HeaderStyled,
   SideMenuIcon,
-  SiteName,
+  SiteNameWhenMenuClosed,
+  SiteNameWhenMenuOpen,
   CloseMenuIcon,
   ProfileIcon,
   DiscoverIcon,
@@ -24,80 +22,10 @@ import {
   FavoriteIcon,
   MessageIcon,
   SettingIcon,
+  HeaderBar,
+  MenuBox,
+  MenuHeader,
 } from './HeaderStyles';
-
-const drawerWidth = 300;
-
-const openedMixin = (theme) => ({
-  width: drawerWidth,
-  borderColor: '#aebdca',
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: 'hidden',
-});
-
-const closedMixin = (theme) => ({
-  borderColor: '#aebdca',
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: 'hidden',
-  width: `calc(${theme.spacing(22)} + 1px)`,
-  [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(23)} + 1px)`,
-  },
-});
-
-const HeaderBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  boxShadow: 'none',
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    zIndex: theme.zIndex.drawer,
-    width: `calc(100% - ${drawerWidth / 2}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const MenuBox = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  width: drawerWidth,
-  flexShrink: 0,
-  whiteSpace: 'nowrap',
-  boxSizing: 'border-box',
-  ...(open && {
-    ...openedMixin(theme),
-    '& .MuiDrawer-paper': openedMixin(theme),
-  }),
-  ...(!open && {
-    ...closedMixin(theme),
-    '& .MuiDrawer-paper': closedMixin(theme),
-  }),
-}));
-
-const MenuHeader = styled('div')(({ theme }) => ({
-  height: '5rem',
-  backgroundColor: '#aebdca',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-  boxShadow: 'none',
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
-}));
 
 const menuItems = [
   {
@@ -133,14 +61,14 @@ const menuItems = [
 ];
 
 const SideMenu = (props) => {
-  const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleMenuOpen = () => {
-    setOpen(true);
+    setMenuOpen(true);
   };
 
   const handleMenuClose = () => {
-    setOpen(false);
+    setMenuOpen(false);
   };
 
   let navigate = useNavigate();
@@ -166,15 +94,13 @@ const SideMenu = (props) => {
             sx={{
               marginTop: '50px',
               minHeight: 90,
-              justifyContent: open ? 'initial' : 'center',
-              px: open ? 5 : 9,
+              px: 9,
             }}
           >
             <ListItemIcon
               sx={{
                 minWidth: 0,
-                mr: open ? 2 : 'auto',
-                justifyContent: open ? 'left' : 'center',
+                mr: menuOpen ? 6 : 'auto',
               }}
             >
               <Link to={url}> {icon}</Link>
@@ -188,7 +114,7 @@ const SideMenu = (props) => {
               }}
               sx={{
                 color: '#aebdca',
-                opacity: open ? 1 : 0,
+                opacity: menuOpen ? 1 : 0,
               }}
             />
           </ListItemButton>
@@ -200,8 +126,7 @@ const SideMenu = (props) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-
-      <HeaderBar open={open}>
+      <HeaderBar open={menuOpen}>
         <HeaderStyled>
           <IconButton
             color="inherit"
@@ -209,17 +134,26 @@ const SideMenu = (props) => {
             onClick={handleMenuOpen}
             sx={{
               marginRight: 5,
-              ...(open && { display: 'none' }),
+              ...(menuOpen && { display: 'none' }),
             }}
           >
             <SideMenuIcon />
           </IconButton>
-          <SiteName onClick={siteNameRouteHandler}>City Feed</SiteName>
+          {!menuOpen && (
+            <SiteNameWhenMenuClosed onClick={siteNameRouteHandler}>
+              City Feed
+            </SiteNameWhenMenuClosed>
+          )}
+          {menuOpen && (
+            <SiteNameWhenMenuOpen onClick={siteNameRouteHandler}>
+              City Feed
+            </SiteNameWhenMenuOpen>
+          )}
           <ProfileIcon onClick={userIconRouteHandler} />
         </HeaderStyled>
       </HeaderBar>
 
-      <MenuBox variant="permanent" open={open}>
+      <MenuBox variant="permanent" open={menuOpen}>
         <MenuHeader>
           <IconButton onClick={handleMenuClose}>
             <CloseMenuIcon />

@@ -12,7 +12,7 @@ import CreatePost from './pages/CreatePost';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 
-const theme = createTheme({
+const appFont = createTheme({
   typography: {
     fontFamily: ['Andale Mono'].join(','),
   },
@@ -21,7 +21,7 @@ const theme = createTheme({
 function App() {
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={appFont}>
         <Routes>
           <Route path="/" element={<Discover />} />
           <Route path="/discover" element={<Discover />} />
