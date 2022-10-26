@@ -50,8 +50,8 @@ const FeedCard = (props) => {
       />
       <CardMedia
         component="img"
-        maxHeight="700"
         image={props.image}
+        style={{ maxHeight: '700px' }}
         alt="post img"
       />
 
