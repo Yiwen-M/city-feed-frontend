@@ -6,7 +6,7 @@ import CreateButton from '../components/UI/CreateButton/CreateButton';
 import { DUMMY_FEED_LIST } from '../components/MockData/DummyFeedList';
 
 const Favorite = () => {
-  let favoriteList = DUMMY_FEED_LIST.filter((feed) => (feed.liked == 1));
+  let favoriteList = DUMMY_FEED_LIST.filter((feed) => (feed.liked === 1));
   console.log(favoriteList);
 
   return (

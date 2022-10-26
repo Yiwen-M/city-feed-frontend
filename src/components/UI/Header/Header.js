@@ -29,31 +29,31 @@ import {
 
 const menuItems = [
   {
-    id: 'link1',
+    linkiId: 'link1',
     url: '/discover',
     text: 'Discover',
     icon: <DiscoverIcon />,
   },
   {
-    id: 'link2',
+    linkiId: 'link2',
     url: '/following',
     text: 'Following',
     icon: <FollowIcon />,
   },
   {
-    id: 'link3',
+    linkiId: 'link3',
     url: '/favorite',
     text: 'Favorite',
     icon: <FavoriteIcon />,
   },
   {
-    id: 'link4',
+    linkiId: 'link4',
     url: '/messageCenter',
     text: 'Message Center',
     icon: <MessageIcon />,
   },
   {
-    id: 'link5',
+    linkiId: 'link5',
     url: '/setting',
     text: 'Setting',
     icon: <SettingIcon />,
@@ -84,13 +84,12 @@ const SideMenu = (props) => {
   };
 
   const menuBtnArr = menuItems.map((item) => {
-    const { id, url, text, icon } = item;
     return (
-      <List>
-        <ListItem key={id} disablePadding sx={{ display: 'block' }}>
+      <List key={item.linkiId}>
+        <ListItem disablePadding sx={{ display: 'block' }}>
           <ListItemButton
             component={Link}
-            to={url}
+            to={item.url}
             sx={{
               marginTop: '50px',
               minHeight: 90,
@@ -103,11 +102,11 @@ const SideMenu = (props) => {
                 mr: menuOpen ? 6 : 'auto',
               }}
             >
-              <Link to={url}> {icon}</Link>
+              {item.icon}
             </ListItemIcon>
 
             <ListItemText
-              primary={text}
+              primary={item.text}
               primaryTypographyProps={{
                 fontSize: '20px',
                 fontWeight: 'bold',
