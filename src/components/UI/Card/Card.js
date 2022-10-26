@@ -1,9 +1,7 @@
 import { useState } from 'react';
 
-import demoImg from '../../../assets/demo_card_img.JPG';
-
-import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
+import Avatar from '@mui/material/Avatar';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
@@ -11,68 +9,90 @@ import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import AddCommentIcon from '@mui/icons-material/AddComment';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import MapsUgcIcon from '@mui/icons-material/MapsUgc';
+import { pink } from '@mui/material/colors';
 
-import { ExpandMore } from './CardStyles';
+import { CardStyled, ExpandMore } from './CardStyles';
 
-const PostCard = (props) => {
+const FeedCard = (props) => {
   const [expanded, setExpanded] = useState(false);
+
+  const [liked, setLiked] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  const handleLikeClick = () => {
+    setLiked(!liked);
+  };
+
   return (
-    <Card
-      sx={{ maxWidth: 800 }}
-      style={{ paddingTop: 10, paddingLeft: 60, paddingRight: 60 }}
-    >
+    <CardStyled sx={{ width: 900, maxHeight: 2000 }}>
       <CardHeader
-        title="Test Post Title"
+        avatar={
+          <Avatar
+            src={props.avatar}
+            sx={{ width: 56, height: 56 }}
+            alt="user avatar"
+          />
+        }
+        title={props.title}
         titleTypographyProps={{
           fontSize: 25,
+          color: '#616161',
         }}
-        subheader="Oct 14, 2022"
+        subheader={props.userId}
         subheaderTypographyProps={{
-          fontSize: 15,
+          fontSize: 17,
+          color: '#616161',
         }}
       />
-      <CardMedia component="img" height="400" image={demoImg} alt="post img" />
+      <CardMedia
+        component="img"
+        maxHeight="700"
+        image={props.image}
+        alt="post img"
+      />
 
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          This impressive and pretty sweets were sold in XXX store, this place
-          is perfect to hang out with your friend.
+        <Typography align="right" variant="body1" color="text.secondary">
+          {`${props.region} · ${props.date} `}
+        </Typography>
+      </CardContent>
+
+      <CardContent>
+        <Typography style={{ wordWrap: 'break-word' }} color="text.secondary">
+          {props.content}
         </Typography>
       </CardContent>
 
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton
+          onClick={handleLikeClick}
+          aria-label="add to favorites"
+          style={{ position: 'absolute', left: '1110px' }}
+          sx={{ color: liked ? pink[500] : 'action' }}
+        >
           <FavoriteIcon />
         </IconButton>
-        <IconButton aria-label="comment">
-          <AddCommentIcon />
-        </IconButton>
-
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
-          aria-label="show more"
+          aria-label="see and send comments"
         >
-          <ExpandMoreIcon />
+          <MapsUgcIcon />
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography style={{ wordWrap: 'break-word' }}>
-            testtesttesettestsetststsetsettesttesttesettestsetststsetsettesttesttesettestsetststsetsettesttesttesettestsetststsetsettesttesttesettestsetststsetsettesttestt.
-          </Typography>
+          <Typography color="text.secondary">comments will be here</Typography>
         </CardContent>
       </Collapse>
-    </Card>
+      {props.children}
+    </CardStyled>
   );
 };
 
-export default PostCard;
+export default FeedCard;
