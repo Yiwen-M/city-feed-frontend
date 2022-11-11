@@ -1,6 +1,6 @@
 import Header from '../components/UI/Header/Header';
 import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
-import FeedCard from '../components/UI/Card/Card';
+import FeedCard from '../components/UI/FeedCard/FeedCard';
 import CreateButton from '../components/UI/CreateButton/CreateButton';
 
 import { DUMMY_FEED_LIST } from '../components/MockData/DummyFeedList';

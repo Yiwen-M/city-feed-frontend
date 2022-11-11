@@ -12,7 +12,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import MapsUgcIcon from '@mui/icons-material/MapsUgc';
 import { pink } from '@mui/material/colors';
 
-import { CardStyled, ExpandMore } from './CardStyles';
+import { CardStyled, ExpandMore } from './FeedCardStyles';
 
 const FeedCard = (props) => {
   const [expanded, setExpanded] = useState(false);
