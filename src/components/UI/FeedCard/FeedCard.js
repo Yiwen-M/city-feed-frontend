@@ -28,7 +28,7 @@ const FeedCard = (props) => {
   };
 
   return (
-    <CardStyled sx={{ width: 900, maxHeight: 2000 }}>
+    <CardStyled>
       <CardHeader
         avatar={
           <Avatar
@@ -69,6 +69,8 @@ const FeedCard = (props) => {
 
       <CardActions disableSpacing>
         <IconButton
+          disableFocusRipple
+          disableRipple
           onClick={handleLikeClick}
           aria-label="add to favorites"
           style={{ position: 'absolute', left: '1110px' }}

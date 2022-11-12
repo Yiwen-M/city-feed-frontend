@@ -4,7 +4,6 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 const CreateIcon = styled(AddCircleOutlineIcon)({
   color: '#aebdca',
-
   fontSize: '84px !important',
   position: 'fixed',
   right: '5rem',
