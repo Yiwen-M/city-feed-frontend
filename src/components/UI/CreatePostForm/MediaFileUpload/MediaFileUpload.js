@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import WrapperCard from '../WapperCard/WrapperCard';
 
 import Box from '@mui/material/Box';

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import MediaFileUpload from './MediaFileUpload/MediaFileUpload';
+import FeedDetails from './FeedDetails/FeedDetails';
 
 const CreateForm = (props) => {
   const currentDate = new Date().toLocaleString();
@@ -15,8 +16,6 @@ const CreateForm = (props) => {
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-
-
 
   const nextStep = () => {
     const curStep = step;
@@ -80,7 +79,6 @@ const CreateForm = (props) => {
     setDescription(e.target.value);
   };
 
-
   switch (step) {
     case 1:
       return (
@@ -93,7 +91,7 @@ const CreateForm = (props) => {
         />
       );
     case 2:
-      return <h1>feed details</h1>;
+      return <FeedDetails nextStep={nextStep} prevStep={prevStep} />;
     case 3:
       return <h1>confirmation</h1>;
     case 4:
