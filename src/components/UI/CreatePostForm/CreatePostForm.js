@@ -73,25 +73,36 @@ const CreateForm = (props) => {
 
   const changeTitleHandler = (e) => {
     setTitle(e.target.value);
+    console.log(title);
   };
 
   const changeDescriptionHandler = (e) => {
     setDescription(e.target.value);
+    console.log(description);
   };
 
   switch (step) {
     case 1:
       return (
         <MediaFileUpload
-          nextStep={nextStep}
-          fileUploadHandler={fileUploadHandler}
-          selectedFiles={selectedFiles}
-          imagePreviewURL={imagePreviewURL}
-          isSelected={isSelected}
+        selectedFiles={selectedFiles}
+        imagePreviewURL={imagePreviewURL}
+        isSelected={isSelected}
+        fileUploadHandler={fileUploadHandler}
+        nextStep={nextStep}
         />
       );
     case 2:
-      return <FeedDetails nextStep={nextStep} prevStep={prevStep} />;
+      return (
+        <FeedDetails
+        title={title}
+        description={description}
+        changeTitleHandler={changeTitleHandler}
+        changeDescriptionHandler={changeDescriptionHandler}
+        nextStep={nextStep}
+        prevStep={prevStep}
+        />
+      );
     case 3:
       return <h1>confirmation</h1>;
     case 4:
