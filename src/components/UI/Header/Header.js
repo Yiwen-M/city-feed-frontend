@@ -16,6 +16,7 @@ import {
   SiteNameWhenMenuClosed,
   SiteNameWhenMenuOpen,
   CloseMenuIcon,
+  CreateIcon,
   ProfileIcon,
   DiscoverIcon,
   FollowIcon,
@@ -80,6 +81,11 @@ const SideMenu = (props) => {
 
   const userIconRouteHandler = () => {
     let path = '/userProfile';
+    navigate(path);
+  };
+
+  const createIconRouteHandler = () => {
+    let path = '/createPost';
     navigate(path);
   };
 
@@ -150,6 +156,7 @@ const SideMenu = (props) => {
               City Feed
             </SiteNameWhenMenuOpen>
           )}
+          <CreateIcon onClick={createIconRouteHandler}/>
           <ProfileIcon onClick={userIconRouteHandler} />
         </HeaderStyled>
       </HeaderBar>

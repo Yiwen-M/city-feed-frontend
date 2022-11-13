@@ -132,8 +132,6 @@ const CreateForm = (props) => {
           submitHandler={submitHandler}
         />
       );
-    case 4:
-      return <h1>success</h1>;
   }
 };
 

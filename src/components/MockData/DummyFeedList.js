@@ -14,6 +14,20 @@ const DUMMY_FEED_LIST = [
         imgUrl:
           'https://s3-media1.fl.yelpcdn.com/bphoto/Ths0O6Y-_vvS_NtPE7nmsg/o.jpg',
       },
+      {
+        type: 'png',
+        imgUrl:
+          'https://media-cdn.tripadvisor.com/media/photo-p/17/8f/11/e5/1558094276338-largejpg.jpg',
+      },
+      {
+        type: 'png',
+        imgUrl:
+          'https://mymodernmet.com/wp/wp-content/uploads/2018/09/cartoon-world-coffee-shop-seoul-9.jpg',
+      },
+      {
+        type: 'png',
+        imgUrl: 'https://sethlui.com/wp-content/uploads/2022/09/rce.jpg',
+      },
     ],
     likes: 20,
     liked: 0,
@@ -33,6 +47,11 @@ const DUMMY_FEED_LIST = [
         type: 'png',
         imgUrl:
           'https://media-cdn.tripadvisor.com/media/photo-p/17/8f/11/e5/1558094276338-largejpg.jpg',
+      },
+      {
+        type: 'png',
+        imgUrl:
+          'https://s3-media1.fl.yelpcdn.com/bphoto/Ths0O6Y-_vvS_NtPE7nmsg/o.jpg',
       },
     ],
     likes: 21,
@@ -54,6 +73,11 @@ const DUMMY_FEED_LIST = [
         imgUrl:
           'https://mymodernmet.com/wp/wp-content/uploads/2018/09/cartoon-world-coffee-shop-seoul-9.jpg',
       },
+      {
+        type: 'png',
+        imgUrl:
+          'https://media-cdn.tripadvisor.com/media/photo-p/17/8f/11/e5/1558094276338-largejpg.jpg',
+      },
     ],
     likes: 20,
     liked: 1,
@@ -72,6 +96,11 @@ const DUMMY_FEED_LIST = [
       {
         type: 'png',
         imgUrl: 'https://sethlui.com/wp-content/uploads/2022/09/rce.jpg',
+      },
+      {
+        type: 'png',
+        imgUrl:
+          'https://s3-media1.fl.yelpcdn.com/bphoto/Ths0O6Y-_vvS_NtPE7nmsg/o.jpg',
       },
     ],
     likes: 20,

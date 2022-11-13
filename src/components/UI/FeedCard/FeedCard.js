@@ -3,6 +3,8 @@ import { useState } from 'react';
 import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';
 import CardMedia from '@mui/material/CardMedia';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
@@ -15,6 +17,8 @@ import { pink } from '@mui/material/colors';
 import { CardStyled, ExpandMore } from './FeedCardStyles';
 
 const FeedCard = (props) => {
+  const { feedId, avatar, title, userId, media, region, date, content } = props;
+
   const [expanded, setExpanded] = useState(false);
 
   const [liked, setLiked] = useState(false);
@@ -32,38 +36,54 @@ const FeedCard = (props) => {
       <CardHeader
         avatar={
           <Avatar
-            src={props.avatar}
+            src={avatar}
             sx={{ width: 56, height: 56 }}
             alt="user avatar"
           />
         }
-        title={props.title}
+        title={title}
         titleTypographyProps={{
           fontSize: 25,
           color: '#616161',
         }}
-        subheader={props.userId}
+        subheader={userId}
         subheaderTypographyProps={{
           fontSize: 17,
           color: '#616161',
         }}
       />
-      <CardMedia
+      {/* <CardMedia
         component="img"
         image={props.image}
         style={{ maxHeight: '700px' }}
         alt="post img"
-      />
+      /> */}
+
+      <ImageList
+        sx={{
+          width: 1050,
+          maxHeight: 1500,
+        }}
+        variant="masonry"
+        cols={2}
+        gap={8}
+      >
+        {media.map((item, index) => (
+          <ImageListItem key={index} sx={{ maxWidth: 675, maxHeight: 750 }}>
+            <img src={item.imgUrl} loading="lazy" />
+          </ImageListItem>
+        ))}
+      </ImageList>
 
       <CardContent>
         <Typography align="right" variant="body1" color="text.secondary">
-          {`${props.region} · ${props.date} `}
+          {`${region} · ${date} `}
         </Typography>
       </CardContent>
 
       <CardContent>
         <Typography style={{ wordWrap: 'break-word' }} color="text.secondary">
-          {props.content}
+          {content}
         </Typography>
       </CardContent>
 

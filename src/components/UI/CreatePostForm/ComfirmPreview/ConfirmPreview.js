@@ -48,15 +48,6 @@ const ConfirmPreview = (props) => {
             color: '#616161',
           }}
         />
-        {imagePreviewURL.map((curImage, index) => {
-          // <CardMedia
-          //   key={index}
-          //   component="img"
-          //   image={curImage}
-          //   style={{ maxHeight: '700px' }}
-          //   alt="post img"
-          // />;
-        })}
         <ImageList
           sx={{
             width: 1200,

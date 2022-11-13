@@ -4,12 +4,14 @@ import Card from '@mui/material/Card';
 import IconButton from '@mui/material/IconButton';
 
 const CardStyled = styled(Card)({
-  paddingTop: '10px',
+  maxHeight: '2000px',
+  width: '1200px',
+  paddingTop: '30px',
   paddingLeft: '80px',
   paddingRight: '80px',
+  paddingBottom: '30px',
+  marginLeft: '300px',
   marginBottom: '80px',
-  maxHeight: '2000px',
-  width: '900px',
   boxShadow: '10px 10px 20px rgba(0, 0, 0, 0.3)',
 });
 
