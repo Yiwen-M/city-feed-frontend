@@ -47,14 +47,14 @@ const SmallCard = styled(Card)({
   borderRadius: '4px',
   paddingBottom: '15px',
   paddingRight: '5px',
-  marginTop: '25px',
-  marginLeft: '13px',
+  marginTop: '50px',
+  marginLeft: '80px',
   display: 'flex',
 });
 
 const BottomBtn = styled(Button)({
   position: 'absolute',
-  top: '40rem',
+  top: '33rem',
   backgroundColor: '#aebdca',
   color: 'white',
   minHeight: '40px',

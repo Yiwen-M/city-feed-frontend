@@ -1,21 +1,23 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import MediaFileUpload from './MediaFileUpload/MediaFileUpload';
 import FeedDetails from './FeedDetails/FeedDetails';
+import ConfirmPreview from './ComfirmPreview/ConfirmPreview';
 
 const CreateForm = (props) => {
-  const currentDate = new Date().toLocaleString();
-  const timeStamp = Date.parse(currentDate).toString();
+  const date = new Date().toLocaleString(); //to show on preview
+  const timestamp = Date.parse(date).toString(); //to pass to backend
 
   const [step, setStep] = useState(1);
 
   const [isSelected, setIsSelected] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [imagePreviewURL, setImagePreviewURL] = useState([]);
+  const [imagePreviewURL, setImagePreviewURL] = useState([]); //to show on preview
   const [base64, setBase64] = useState([]); //to pass to backend
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState(''); //to pass to backend
+  const [content, setContent] = useState(''); //to pass to backend
 
   const nextStep = () => {
     const curStep = step;
@@ -76,35 +78,60 @@ const CreateForm = (props) => {
     console.log(title);
   };
 
-  const changeDescriptionHandler = (e) => {
-    setDescription(e.target.value);
-    console.log(description);
+  const changeContentHandler = (e) => {
+    setContent(e.target.value);
+    console.log(content);
   };
+
+  let navigate = useNavigate();
+
+  function submitHandler() {
+    let path = '/discover';
+    navigate(path);
+    console.log({
+      userId: 'testUser',
+      title: title,
+      avatar: 'https://www.w3schools.com/howto/img_avatar.png',
+      content: content,
+      timestamp: timestamp,
+      region: 'seattle',
+      media: base64,
+    });
+  }
 
   switch (step) {
     case 1:
       return (
         <MediaFileUpload
-        selectedFiles={selectedFiles}
-        imagePreviewURL={imagePreviewURL}
-        isSelected={isSelected}
-        fileUploadHandler={fileUploadHandler}
-        nextStep={nextStep}
+          selectedFiles={selectedFiles}
+          imagePreviewURL={imagePreviewURL}
+          isSelected={isSelected}
+          fileUploadHandler={fileUploadHandler}
+          nextStep={nextStep}
         />
       );
     case 2:
       return (
         <FeedDetails
-        title={title}
-        description={description}
-        changeTitleHandler={changeTitleHandler}
-        changeDescriptionHandler={changeDescriptionHandler}
-        nextStep={nextStep}
-        prevStep={prevStep}
+          title={title}
+          content={content}
+          changeTitleHandler={changeTitleHandler}
+          changeContentHandler={changeContentHandler}
+          nextStep={nextStep}
+          prevStep={prevStep}
         />
       );
     case 3:
-      return <h1>confirmation</h1>;
+      return (
+        <ConfirmPreview
+          title={title}
+          imagePreviewURL={imagePreviewURL}
+          date={date}
+          content={content}
+          prevStep={prevStep}
+          submitHandler={submitHandler}
+        />
+      );
     case 4:
       return <h1>success</h1>;
   }

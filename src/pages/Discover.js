@@ -19,7 +19,7 @@ const Discover = () => {
               userId={feed.userId}
               image={feed.media[0].imgUrl}
               region={feed.region}
-              date={new Date(feed.timestamp).toLocaleDateString("en-US")}
+              date={new Date(feed.timestamp).toLocaleString()}
               content={feed.content}
             />
           );

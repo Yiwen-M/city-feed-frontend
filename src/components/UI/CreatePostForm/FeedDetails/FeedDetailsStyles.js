@@ -30,7 +30,7 @@ const WrapperTextStyled = styled(TextField)({
 
 const BottomBtn = styled(Button)({
   position: 'absolute',
-  top: '38rem',
+  top: '33rem',
   backgroundColor: '#aebdca',
   color: 'white',
   minHeight: '40px',

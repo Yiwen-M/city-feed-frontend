@@ -71,7 +71,7 @@ const MediaFileUpload = (props) => {
             flexWrap: 'wrap',
             '& > :not(style)': {
               m: 9,
-              width: 900,
+              width: 1200,
               height: 400,
             },
           }}
@@ -124,7 +124,7 @@ const MediaFileUpload = (props) => {
                   variant="contained"
                   component="label"
                   sx={{ width: '170px' }}
-                  style={{ left: '600px' }}
+                  style={{ left: '380px' }}
                 >
                   upload more
                   <input
@@ -139,7 +139,7 @@ const MediaFileUpload = (props) => {
                   variant="contained"
                   component="label"
                   sx={{ width: '170px' }}
-                  style={{ left: '1000px' }}
+                  style={{ left: '730px' }}
                   onClick={Continue}
                 >
                   next
