@@ -16,6 +16,7 @@ import {
   SiteNameWhenMenuClosed,
   SiteNameWhenMenuOpen,
   CloseMenuIcon,
+  CreateIcon,
   ProfileIcon,
   DiscoverIcon,
   FollowIcon,
@@ -83,6 +84,11 @@ const SideMenu = (props) => {
     navigate(path);
   };
 
+  const createIconRouteHandler = () => {
+    let path = '/createPost';
+    navigate(path);
+  };
+
   const menuBtnArr = menuItems.map((item) => {
     return (
       <List key={item.linkiId}>
@@ -128,6 +134,8 @@ const SideMenu = (props) => {
       <HeaderBar open={menuOpen}>
         <HeaderStyled>
           <IconButton
+            disableFocusRipple
+            disableRipple
             color="inherit"
             aria-label="open side menu"
             onClick={handleMenuOpen}
@@ -148,13 +156,18 @@ const SideMenu = (props) => {
               City Feed
             </SiteNameWhenMenuOpen>
           )}
+          <CreateIcon onClick={createIconRouteHandler}/>
           <ProfileIcon onClick={userIconRouteHandler} />
         </HeaderStyled>
       </HeaderBar>
 
       <MenuBox variant="permanent" open={menuOpen}>
         <MenuHeader>
-          <IconButton onClick={handleMenuClose}>
+          <IconButton
+            disableFocusRipple
+            disableRipple
+            onClick={handleMenuClose}
+          >
             <CloseMenuIcon />
           </IconButton>
         </MenuHeader>

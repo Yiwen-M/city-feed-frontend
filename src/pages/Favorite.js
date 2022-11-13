@@ -1,7 +1,6 @@
 import Header from '../components/UI/Header/Header';
 import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
-import FeedCard from '../components/UI/Card/Card';
-import CreateButton from '../components/UI/CreateButton/CreateButton';
+import FeedCard from '../components/UI/FeedCard/FeedCard';
 
 import { DUMMY_FEED_LIST } from '../components/MockData/DummyFeedList';
 
@@ -20,15 +19,14 @@ const Favorite = () => {
               avatar={feed.avatar}
               title={feed.title}
               userId={feed.userId}
-              image={feed.media[0].imgUrl}
+              media={feed.media}
               region={feed.region}
-              date={new Date(feed.timestamp).toLocaleDateString('en-US')}
+              date={new Date(feed.timestamp).toLocaleString()}
               content={feed.content}
             />
           );
         })}
 
-        <CreateButton />
       </PageWrapper>
     </>
   );

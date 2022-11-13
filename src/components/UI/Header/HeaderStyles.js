@@ -6,6 +6,7 @@ import MuiDrawer from '@mui/material/Drawer'; //menu drawer
 
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'; //side menu toggle open icon
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'; //side menu toggle close icon
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'; //create icon
 import FaceRoundedIcon from '@mui/icons-material/FaceRounded'; //profile icon
 import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded'; //discover
 import AddReactionRoundedIcon from '@mui/icons-material/AddReactionRounded'; //follow
@@ -56,6 +57,14 @@ const SideMenuIcon = styled(WidgetsRoundedIcon)({
 });
 
 const CloseMenuIcon = styled(ChevronLeftIcon)({
+  color: 'white',
+  fontSize: '36px !important',
+});
+
+const CreateIcon = styled(AddCircleOutlineIcon)({
+  position: 'absolute',
+  right: '10rem',
+  cursor: 'pointer',
   color: 'white',
   fontSize: '36px !important',
 });
@@ -118,7 +127,7 @@ const HeaderBar = styled(MuiAppBar, {
   //header bar's style when menu is closed
   zIndex: theme.zIndex.drawer + 1,
   boxShadow: 'none',
-  
+
   //header bar's style when menu is open
   ...(open && {
     marginLeft: drawerWidth,
@@ -130,7 +139,7 @@ const HeaderBar = styled(MuiAppBar, {
 const MenuBox = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
-  //MenuBox's overall style 
+  //MenuBox's overall style
   flexShrink: 0,
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',
@@ -163,13 +172,13 @@ export {
   SiteNameWhenMenuClosed,
   SiteNameWhenMenuOpen,
   CloseMenuIcon,
+  CreateIcon,
   ProfileIcon,
   DiscoverIcon,
   FollowIcon,
   FavoriteIcon,
   MessageIcon,
   SettingIcon,
-  
   HeaderBar,
   MenuBox,
   MenuHeader,

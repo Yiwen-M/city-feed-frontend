@@ -1,14 +1,13 @@
 import Header from '../components/UI/Header/Header';
 import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
+import CreateForm from '../components/UI/CreatePostForm/CreatePostForm';
 
 const CreatePost = () => {
   return (
     <>
       <Header />
       <PageWrapper>
-        <h1>
-          Create post will be here
-        </h1>
+        <CreateForm />
       </PageWrapper>
     </>
   );
