@@ -2,6 +2,7 @@ import { styled } from '@mui/system';
 
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
 
 const WrapperDivStyled = styled(`div`)({
   border: '2px dashed #B4BABD',
@@ -9,44 +10,62 @@ const WrapperDivStyled = styled(`div`)({
   backgroundColor: '#F6F4F4',
   borderRadius: '4px',
   display: 'flex',
-  alignItems: 'stretch',
   flexFlow: 'column wrap',
-  alignItems: 'center',
 });
 
 const UploadIcon = styled(FileUploadOutlinedIcon)({
   position: 'absolute',
-  top: '3rem',
+  top: '4rem',
   color: '#aebdca',
   fontSize: '55px !important',
-  flex: 1,
+  alignSelf: 'center',
 });
 
 const UploadButton = styled(Button)({
   position: 'absolute',
   top: '24rem',
-  marginLeft:'5px',
+  marginLeft: '5px',
   backgroundColor: '#aebdca',
   color: 'white',
   minHeight: '40px',
+  alignSelf: 'center',
+  fontSize: '15px',
+  fontWeight: 'bold',
   '&:hover': {
     backgroundColor: '#aebdca',
   },
   '&:active': {
     backgroundColor: '#aebdca',
   },
-  flex: 3,
 });
 
-const FilePreviewContainer = styled(`div`)({
-  border: '2px dashed #B4BABD',
-  cursor: 'pointer',
-  backgroundColor: '#F6F4F4',
+const SmallCard = styled(Card)({
+  backgroundColor: 'white',
+  height: '120px',
+  width: '400px',
+  border: '1px #B4BABD',
   borderRadius: '4px',
+  paddingBottom: '15px',
+  paddingRight: '5px',
+  marginTop: '25px',
+  marginLeft: '13px',
   display: 'flex',
-  alignItems: 'stretch',
-  flexFlow: 'column wrap',
-  alignItems: 'center',
 });
 
-export { WrapperDivStyled, UploadIcon, UploadButton, FilePreviewContainer };
+const BottomBtn = styled(Button)({
+  position: 'absolute',
+  top: '40rem',
+  backgroundColor: '#aebdca',
+  color: 'white',
+  minHeight: '40px',
+  fontSize: '15px',
+  fontWeight: 'bold',
+  '&:hover': {
+    backgroundColor: '#aebdca',
+  },
+  '&:active': {
+    backgroundColor: '#aebdca',
+  },
+});
+
+export { WrapperDivStyled, UploadIcon, UploadButton, SmallCard, BottomBtn };
