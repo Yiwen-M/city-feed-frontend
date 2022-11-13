@@ -13,8 +13,7 @@ const FeedDetails = (props) => {
     props.nextStep();
   };
 
-  const { title, content, changeTitleHandler, changeContentHandler } =
-    props;
+  const { title, content, changeTitleHandler, changeContentHandler } = props;
 
   const TITLE_CHARACTER_LIMIT = 40;
   const CONTENT_CHARACTER_LENGTH = 430;
@@ -54,6 +53,7 @@ const FeedDetails = (props) => {
           variant="contained"
           sx={{ width: '170px' }}
           style={{ left: '730px' }}
+          disabled={title.length <= 0 || content.length <= 0}
           onClick={Continue}
         >
           next
