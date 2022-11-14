@@ -25,40 +25,30 @@ const MediaFileUpload = (props) => {
 
   const uploadedFileArr = selectedFiles.map((curFile, index) => {
     return (
-      <>
-        <SmallCard key={curFile} value={curFile}>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <CardContent sx={{ flex: '1 0 auto' }}>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                component="div"
-              >
-                {curFile.name}
-              </Typography>
-              <br />
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                component="div"
-              >
-                Size: {curFile.size} bytes
-              </Typography>
-            </CardContent>
-          </Box>
-          <CardMedia
-            component="img"
-            sx={{ maxWidth: 150 }}
-            style={{
-              marginLeft: '60px',
-              marginTop: '15px',
-              marginRight: '5px',
-            }}
-            image={imagePreviewURL[index]}
-            alt="selected image"
-          />
-        </SmallCard>
-      </>
+      <SmallCard key={'StringImg' + index} value={curFile}>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <CardContent sx={{ flex: '1 0 auto' }}>
+            <Typography variant="body2" color="text.secondary" component="div">
+              {curFile.name}
+            </Typography>
+            <br />
+            <Typography variant="body2" color="text.secondary" component="div">
+              Size: {curFile.size} bytes
+            </Typography>
+          </CardContent>
+        </Box>
+        <CardMedia
+          component="img"
+          sx={{ maxWidth: 150 }}
+          style={{
+            marginLeft: '60px',
+            marginTop: '15px',
+            marginRight: '5px',
+          }}
+          image={imagePreviewURL[index]}
+          alt="selected image"
+        />
+      </SmallCard>
     );
   });
 
