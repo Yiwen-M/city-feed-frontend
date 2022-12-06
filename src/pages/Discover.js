@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-import { URL, API_KEY } from '../keys';
+import { GET_URL, API_KEY } from '../keys';
 
 import Header from '../components/UI/Header/Header';
 import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
@@ -18,7 +18,7 @@ const Discover = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(URL, {
+      const response = await fetch(GET_URL, {
         method: 'GET',
         headers: { 'x-api-key': API_KEY },
       });
@@ -39,7 +39,7 @@ const Discover = () => {
 
   let content = (
     <div style={{ marginTop: '180px', marginLeft: '750px' }}>
-      <CircularProgress size="10rem" thickness="2" sx={{ color: '#aebdca' }} />
+      <CircularProgress size="10rem" thickness={2} sx={{ color: '#aebdca' }} />
     </div>
   );
 
@@ -77,7 +77,7 @@ const Discover = () => {
       <div style={{ marginTop: '180px', marginLeft: '750px' }}>
         <CircularProgress
           size="10rem"
-          thickness="2"
+          thickness={2}
           sx={{ color: '#aebdca' }}
         />
       </div>

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { POST_URL, API_KEY } from '../../../keys';
+
 import MediaFileUpload from './MediaFileUpload/MediaFileUpload';
 import FeedDetails from './FeedDetails/FeedDetails';
 import ConfirmPreview from './ComfirmPreview/ConfirmPreview';
@@ -14,7 +16,7 @@ const CreateForm = (props) => {
   const [isSelected, setIsSelected] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [imagePreviewURL, setImagePreviewURL] = useState([]); //to show on preview
-  const [base64, setBase64] = useState([]); //to pass to backend
+  const [imgTypeAndBase64, setImgTypeAndBase64] = useState([]); //to pass to backend
 
   const [title, setTitle] = useState(''); //to pass to backend
   const [content, setContent] = useState(''); //to pass to backend
@@ -51,9 +53,18 @@ const CreateForm = (props) => {
             ...prevURLArray,
             URL.createObjectURL(curFile),
           ]);
+          const curImgType = curFile.type;
           const curBase64 = await convertBase64(curFile);
-          setBase64((prevBase64Array) => [...prevBase64Array, curBase64]);
-          console.log(curBase64);
+          // console.log(curImgType.substring(6, curImgType.length));
+          // console.log(curBase64);
+
+          setImgTypeAndBase64((prevMediaArray) => [
+            ...prevMediaArray,
+            {
+              type: curImgType.substring(6, curImgType.length),
+              base64: curBase64,
+            },
+          ]);
         });
       }
       setIsSelected(true);
@@ -85,18 +96,31 @@ const CreateForm = (props) => {
 
   let navigate = useNavigate();
 
-  function submitHandler() {
-    let path = '/discover';
-    navigate(path);
-    console.log({
-      userId: 'testUser',
-      title: title,
-      avatar: 'https://www.w3schools.com/howto/img_avatar.png',
-      content: content,
-      timestamp: timestamp,
-      region: 'seattle',
-      media: base64,
-    });
+  async function submitHandler() {
+    try {
+      const response = await fetch(POST_URL, {
+        method: 'POST',
+        body: {
+          userId: 'testUser',
+          title: title,
+          content: content,
+          timestamp: timestamp,
+          region: 'seattle',
+          media: imgTypeAndBase64,
+        },
+        headers: {
+          'content-type': 'application/json',
+          'x-api-key': API_KEY,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+
+      let path = '/discover';
+      navigate(path);
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   switch (step) {
@@ -130,6 +154,16 @@ const CreateForm = (props) => {
           content={content}
           prevStep={prevStep}
           submitHandler={submitHandler}
+        />
+      );
+    default:
+      return (
+        <MediaFileUpload
+          selectedFiles={selectedFiles}
+          imagePreviewURL={imagePreviewURL}
+          isSelected={isSelected}
+          fileUploadHandler={fileUploadHandler}
+          nextStep={nextStep}
         />
       );
   }
