@@ -17,10 +17,9 @@ import { pink } from '@mui/material/colors';
 import { CardStyled, ExpandMore } from './FeedCardStyles';
 
 const FeedCard = (props) => {
-  const { feedId, avatar, title, userId, media, region, date, content } = props;
+  const { avatar, title, userId, media, region, date, content } = props;
 
   const [expanded, setExpanded] = useState(false);
-
   const [liked, setLiked] = useState(false);
 
   const handleExpandClick = () => {
@@ -52,28 +51,32 @@ const FeedCard = (props) => {
           color: '#616161',
         }}
       />
-      {/* <CardMedia
-        component="img"
-        image={props.image}
-        style={{ maxHeight: '700px' }}
-        alt="post img"
-      /> */}
+      {media.length === 1 && (
+        <CardMedia
+          component="img"
+          image={media[0].imgUrl}
+          style={{ maxHeight: '700px' }}
+          alt="post img"
+        />
+      )}
 
-      <ImageList
-        sx={{
-          width: 1050,
-          maxHeight: 1500,
-        }}
-        variant="masonry"
-        cols={2}
-        gap={8}
-      >
-        {media.map((item, index) => (
-          <ImageListItem key={index} sx={{ maxWidth: 675, maxHeight: 750 }}>
-            <img src={item.imgUrl} loading="lazy" />
-          </ImageListItem>
-        ))}
-      </ImageList>
+      {media.length > 1 && (
+        <ImageList
+          sx={{
+            width: 1050,
+            maxHeight: 1500,
+          }}
+          variant="masonry"
+          cols={2}
+          gap={8}
+        >
+          {media.map((item, index) => (
+            <ImageListItem key={index} sx={{ maxWidth: 675, maxHeight: 750 }}>
+              <img src={item.imgUrl} loading="lazy" alt="post img" />
+            </ImageListItem>
+          ))}
+        </ImageList>
+      )}
 
       <CardContent>
         <Typography align="right" variant="body1" color="text.secondary">
