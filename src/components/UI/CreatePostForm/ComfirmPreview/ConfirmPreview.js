@@ -1,4 +1,4 @@
-import WrapperCard from '../WapperCard/WrapperCard';
+import WrapperCard from '../../WapperCard/WrapperCard';
 
 import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';
@@ -62,7 +62,7 @@ const ConfirmPreview = (props) => {
         >
           {imagePreviewURL.map((item, index) => (
             <ImageListItem key={index} sx={{ maxWidth: 350, maxHeight: 200 }}>
-              <img src={item} loading="lazy" />
+              <img src={item} loading="lazy" alt="post img" />
             </ImageListItem>
           ))}
         </ImageList>
