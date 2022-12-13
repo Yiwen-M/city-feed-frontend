@@ -97,17 +97,18 @@ const CreateForm = (props) => {
   let navigate = useNavigate();
 
   async function submitHandler() {
+    const postContent = {
+      userId: 'testUser',
+      title: title,
+      content: content,
+      timestamp: timestamp,
+      region: 'seattle',
+      media: imgTypeAndBase64,
+    };
     try {
       const response = await fetch(POST_URL, {
         method: 'POST',
-        body: {
-          userId: 'testUser',
-          title: title,
-          content: content,
-          timestamp: timestamp,
-          region: 'seattle',
-          media: imgTypeAndBase64,
-        },
+        body: JSON.stringify(postContent),
         headers: {
           'content-type': 'application/json',
           'x-api-key': API_KEY,
