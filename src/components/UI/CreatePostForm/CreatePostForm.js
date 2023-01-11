@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { POST_URL, API_KEY } from '../../../keys';
+import { POST_FEED_URL, API_KEY } from '../../../keys';
 
 import MediaFileUpload from './MediaFileUpload/MediaFileUpload';
 import FeedDetails from './FeedDetails/FeedDetails';
@@ -106,7 +106,7 @@ const CreateForm = (props) => {
       media: imgTypeAndBase64,
     };
     try {
-      const response = await fetch(POST_URL, {
+      const response = await fetch(POST_FEED_URL, {
         method: 'POST',
         body: JSON.stringify(postContent),
         headers: {

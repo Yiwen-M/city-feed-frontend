@@ -26,7 +26,6 @@ const Favorite = () => {
             />
           );
         })}
-
       </PageWrapper>
     </>
   );
