@@ -10,7 +10,6 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'; //creat
 import FaceRoundedIcon from '@mui/icons-material/FaceRounded'; //profile icon
 import TravelExploreRoundedIcon from '@mui/icons-material/TravelExploreRounded'; //discover
 import AddReactionRoundedIcon from '@mui/icons-material/AddReactionRounded'; //follow
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'; //favorite
 import SendTimeExtensionRoundedIcon from '@mui/icons-material/SendTimeExtensionRounded'; //message
 import SettingsSuggestRoundedIcon from '@mui/icons-material/SettingsSuggestRounded'; //setting
 
@@ -83,11 +82,6 @@ const DiscoverIcon = styled(TravelExploreRoundedIcon)({
 });
 
 const FollowIcon = styled(AddReactionRoundedIcon)({
-  color: '#aebdca',
-  fontSize: '36px !important',
-});
-
-const FavoriteIcon = styled(FavoriteRoundedIcon)({
   color: '#aebdca',
   fontSize: '36px !important',
 });
@@ -176,7 +170,6 @@ export {
   ProfileIcon,
   DiscoverIcon,
   FollowIcon,
-  FavoriteIcon,
   MessageIcon,
   SettingIcon,
   HeaderBar,

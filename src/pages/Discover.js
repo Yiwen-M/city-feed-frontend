@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-import { GET_URL, API_KEY } from '../keys';
+import { GET_FEED_URL, API_KEY } from '../keys';
 
 import Header from '../components/UI/Header/Header';
 import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
@@ -18,7 +18,7 @@ const Discover = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(GET_URL, {
+      const response = await fetch(GET_FEED_URL, {
         method: 'GET',
         headers: { 'x-api-key': API_KEY },
       });
