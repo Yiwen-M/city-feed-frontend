@@ -8,6 +8,8 @@ import UserProfileCard from '../components/UI/UserProfileCard/UserProfileCard';
 import WrapperCard from '../components/UI/WapperCard/WrapperCard';
 import FeedCard from '../components/UI/FeedCard/FeedCard';
 
+import { DUMMY_FEED_LIST } from '../components/MockData/DummyFeedList';
+
 import CircularProgress from '@mui/material/CircularProgress';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -22,12 +24,14 @@ const UserProfile = () => {
   const [tabValue, setTabValue] = useState(0);
 
   const changeTabHandler = (event, newTabValue) => {
+    console.log(newTabValue);
     setTabValue(newTabValue);
   };
 
   const curUserId = 'testUser';
   const curFollower = 0;
   const curFollowing = 0;
+  let favoriteList = DUMMY_FEED_LIST.filter((feed) => feed.liked === 1);
 
   const getUserDetailHandler = useCallback(async () => {
     setIsLoading(true);
@@ -60,56 +64,105 @@ const UserProfile = () => {
   );
 
   if (userDetail) {
-    content = (
-      <>
-        <UserProfileCard
-          avatar={userDetail.avatar}
-          userId={curUserId}
-          following={curFollowing}
-          follower={curFollower}
-        />
-        <Tabs
-          value={tabValue}
-          onChange={changeTabHandler}
-          TabIndicatorProps={{
-            style: {
-              backgroundColor: '#aebdca',
-            },
-          }}
-          style={{ marginLeft: '600px', marginBottom: '30px' }}
-          aria-label="profile page tabs"
-        >
-          <Tab
-            disableFocusRipple
-            disableRipple
-            style={{ color: '#616161', width: '300px', fontSize: '15px' }}
-            
-            label="My Post"
+    if (tabValue === 0) {
+      content = (
+        <>
+          <UserProfileCard
+            avatar={userDetail.avatar}
+            userId={curUserId}
+            following={curFollowing}
+            follower={curFollower}
           />
-          <Tab
-            disableFocusRipple
-            disableRipple
-            style={{ color: '#616161', width: '300px', fontSize: '15px' }}
-            
-            label="Favorite Post"
-          />
-        </Tabs>
-        {userDetail.feedList.map((feed) => {
-          return (
-            <FeedCard
-              key={feed.feedId}
-              avatar={feed.avatar}
-              title={feed.title}
-              userId={feed.userId}
-              media={feed.media}
-              region={feed.region}
-              date={new Date(parseInt(feed.timestamp)).toLocaleString()}
-              content={feed.content}
+          <Tabs
+            value={tabValue}
+            onChange={changeTabHandler}
+            TabIndicatorProps={{
+              style: {
+                backgroundColor: '#aebdca',
+              },
+            }}
+            style={{ marginLeft: '600px', marginBottom: '30px' }}
+            aria-label="profile page tabs"
+          >
+            <Tab
+              disableFocusRipple
+              disableRipple
+              style={{ color: '#616161', width: '300px', fontSize: '15px' }}
+              label="My Post"
             />
-          );
-        })}
-      </>
-    );
+            <Tab
+              disableFocusRipple
+              disableRipple
+              style={{ color: '#616161', width: '300px', fontSize: '15px' }}
+              label="Favorite Post"
+            />
+          </Tabs>
+          {userDetail.feedList.map((feed) => {
+            return (
+              <FeedCard
+                key={feed.feedId}
+                avatar={feed.avatar}
+                title={feed.title}
+                userId={feed.userId}
+                media={feed.media}
+                region={feed.region}
+                date={new Date(parseInt(feed.timestamp)).toLocaleString()}
+                content={feed.content}
+              />
+            );
+          })}
+        </>
+      );
+    } else {
+      content = (
+        <>
+          <UserProfileCard
+            avatar={userDetail.avatar}
+            userId={curUserId}
+            following={curFollowing}
+            follower={curFollower}
+          />
+          <Tabs
+            value={tabValue}
+            onChange={changeTabHandler}
+            TabIndicatorProps={{
+              style: {
+                backgroundColor: '#aebdca',
+              },
+            }}
+            style={{ marginLeft: '600px', marginBottom: '30px' }}
+            aria-label="profile page tabs"
+          >
+            <Tab
+              disableFocusRipple
+              disableRipple
+              style={{ color: '#616161', width: '300px', fontSize: '15px' }}
+              label="My Post"
+            />
+            <Tab
+              disableFocusRipple
+              disableRipple
+              style={{ color: '#616161', width: '300px', fontSize: '15px' }}
+              label="Favorite Post"
+            />
+          </Tabs>
+          {favoriteList.map((feed) => {
+            return (
+              <FeedCard
+                key={feed.feedId}
+                avatar={feed.avatar}
+                title={feed.title}
+                userId={feed.userId}
+                media={feed.media}
+                region={feed.region}
+                date={new Date(feed.timestamp).toLocaleString()}
+                content={feed.content}
+              />
+            );
+          })}
+        </>
+      );
+    }
   }
 
   if (error) {
