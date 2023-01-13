@@ -20,7 +20,6 @@ import {
   ProfileIcon,
   DiscoverIcon,
   FollowIcon,
-  FavoriteIcon,
   MessageIcon,
   SettingIcon,
   HeaderBar,
@@ -43,18 +42,12 @@ const menuItems = [
   },
   {
     linkiId: 'link3',
-    url: '/favorite',
-    text: 'Favorite',
-    icon: <FavoriteIcon />,
-  },
-  {
-    linkiId: 'link4',
     url: '/messageCenter',
     text: 'Message Center',
     icon: <MessageIcon />,
   },
   {
-    linkiId: 'link5',
+    linkiId: 'link4',
     url: '/setting',
     text: 'Setting',
     icon: <SettingIcon />,
@@ -97,7 +90,7 @@ const SideMenu = (props) => {
             component={Link}
             to={item.url}
             sx={{
-              marginTop: '50px',
+              marginTop: '85px',
               minHeight: 90,
               px: 9,
             }}

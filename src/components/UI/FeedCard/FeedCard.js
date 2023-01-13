@@ -44,11 +44,15 @@ const FeedCard = (props) => {
         titleTypographyProps={{
           fontSize: 25,
           color: '#616161',
+          marginLeft: 3,
+
         }}
         subheader={userId}
         subheaderTypographyProps={{
           fontSize: 17,
           color: '#616161',
+          marginLeft: 3,
+
         }}
       />
       {media.length === 1 && (
