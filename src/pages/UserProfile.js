@@ -13,8 +13,6 @@ import { DUMMY_FEED_LIST } from '../components/MockData/DummyFeedList';
 import CircularProgress from '@mui/material/CircularProgress';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import PersonPinIcon from '@mui/icons-material/PersonPin';
 
 const UserProfile = () => {
   const [userDetail, setUserDetail] = useState(null);
@@ -28,7 +26,7 @@ const UserProfile = () => {
     setTabValue(newTabValue);
   };
 
-  const curUserId = 'testUser';
+  const curUserId = 'testUser'; //hard coded for now
   const curFollower = 0;
   const curFollowing = 0;
   let favoriteList = DUMMY_FEED_LIST.filter((feed) => feed.liked === 1);
@@ -88,13 +86,13 @@ const UserProfile = () => {
               disableFocusRipple
               disableRipple
               style={{ color: '#616161', width: '300px', fontSize: '15px' }}
-              label="My Post"
+              label="My Feeds"
             />
             <Tab
               disableFocusRipple
               disableRipple
               style={{ color: '#616161', width: '300px', fontSize: '15px' }}
-              label="Favorite Post"
+              label="Favorite Feeds"
             />
           </Tabs>
           {userDetail.feedList.map((feed) => {

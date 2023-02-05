@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-import CardActions from '@mui/material/CardActions';
-
 import { CardStyled } from './UserProfileCardStyles';
 
 const UserProfileCard = (props) => {

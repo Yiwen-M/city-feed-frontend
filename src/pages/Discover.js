@@ -14,11 +14,13 @@ const Discover = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const curUserId = 'testUser'; //hard coded for now
+
   const getFeedListHandler = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(GET_FEED_URL, {
+      const response = await fetch(GET_FEED_URL + curUserId, {
         method: 'GET',
         headers: { 'x-api-key': API_KEY },
       });
