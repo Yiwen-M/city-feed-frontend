@@ -42,8 +42,7 @@ const FeedCard = (props) => {
 
   const changeLikeStatusHandler = () => {
     console.log(feedLikeStatus);
-    // setFeedLikeStatus(liked == 0 ? 1 : 0);
-    setFeedLikeStatus(!feedLikeStatus)
+    setFeedLikeStatus(feedLikeStatus == 0 ? 1 : 0);
   };
 
   useEffect(() => {
@@ -56,6 +55,9 @@ const FeedCard = (props) => {
       feedId: feedId,
       like: feedLikeStatus,
     };
+    if (likeFeedBody.like === liked) {
+      return;
+    }
     try {
       const response = await fetch(LIKE_FEED_URL, {
         method: 'POST',
