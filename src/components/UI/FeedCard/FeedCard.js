@@ -35,6 +35,7 @@ const FeedCard = (props) => {
 
   const [expanded, setExpanded] = useState(false);
   const [feedLikeStatus, setFeedLikeStatus] = useState(liked);
+  const [disableLikeBtn, setDisableLikeBtn] = useState(false);
 
   const expandClickHandler = () => {
     setExpanded(!expanded);
@@ -43,6 +44,10 @@ const FeedCard = (props) => {
   const changeLikeStatusHandler = () => {
     console.log(feedLikeStatus);
     setFeedLikeStatus(feedLikeStatus == 0 ? 1 : 0);
+    setDisableLikeBtn(true);
+    setTimeout(() => {
+      setDisableLikeBtn(false);
+    }, 2000);
   };
 
   useEffect(() => {
@@ -144,6 +149,7 @@ const FeedCard = (props) => {
           onClick={changeLikeStatusHandler}
           style={{ position: 'absolute', left: '1110px' }}
           sx={{ color: feedLikeStatus == 1 ? pink[500] : 'action' }}
+          disabled={disableLikeBtn}
         >
           <FavoriteIcon />
         </IconButton>
