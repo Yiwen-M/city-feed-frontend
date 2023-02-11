@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import { LIKE_FEED_URL, API_KEY } from '../../../keys';
 
 import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';
@@ -17,18 +19,58 @@ import { pink } from '@mui/material/colors';
 import { CardStyled, ExpandMore } from './FeedCardStyles';
 
 const FeedCard = (props) => {
-  const { avatar, title, userId, media, region, date, content } = props;
+  const {
+    feedId,
+    avatar,
+    title,
+    userId,
+    media,
+    region,
+    date,
+    content,
+    likeNum,
+    liked,
+    commentNum,
+  } = props;
 
   const [expanded, setExpanded] = useState(false);
-  const [liked, setLiked] = useState(false);
+  const [feedLikeStatus, setFeedLikeStatus] = useState(liked);
 
-  const handleExpandClick = () => {
+  const expandClickHandler = () => {
     setExpanded(!expanded);
   };
 
-  const handleLikeClick = () => {
-    setLiked(!liked);
+  const changeLikeStatusHandler = () => {
+    console.log(feedLikeStatus);
+    // setFeedLikeStatus(liked == 0 ? 1 : 0);
+    setFeedLikeStatus(!feedLikeStatus)
   };
+
+  useEffect(() => {
+    likeFeedHandler();
+  }, [feedLikeStatus]);
+
+  async function likeFeedHandler() {
+    const likeFeedBody = {
+      userId: 'testUser',
+      feedId: feedId,
+      like: feedLikeStatus,
+    };
+    try {
+      const response = await fetch(LIKE_FEED_URL, {
+        method: 'POST',
+        body: JSON.stringify(likeFeedBody),
+        headers: {
+          'content-type': 'application/json',
+          'x-api-key': API_KEY,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
   return (
     <CardStyled>
@@ -45,14 +87,12 @@ const FeedCard = (props) => {
           fontSize: 25,
           color: '#616161',
           marginLeft: 3,
-
         }}
         subheader={userId}
         subheaderTypographyProps={{
           fontSize: 17,
           color: '#616161',
           marginLeft: 3,
-
         }}
       />
       {media.length === 1 && (
@@ -98,16 +138,16 @@ const FeedCard = (props) => {
         <IconButton
           disableFocusRipple
           disableRipple
-          onClick={handleLikeClick}
           aria-label="add to favorites"
+          onClick={changeLikeStatusHandler}
           style={{ position: 'absolute', left: '1110px' }}
-          sx={{ color: liked ? pink[500] : 'action' }}
+          sx={{ color: feedLikeStatus == 1 ? pink[500] : 'action' }}
         >
           <FavoriteIcon />
         </IconButton>
         <ExpandMore
           expand={expanded}
-          onClick={handleExpandClick}
+          onClick={expandClickHandler}
           aria-expanded={expanded}
           aria-label="see and send comments"
         >

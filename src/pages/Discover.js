@@ -50,6 +50,7 @@ const Discover = () => {
       return (
         <FeedCard
           key={feed.feedId}
+          feedId={feed.feedId}
           avatar={feed.avatar}
           title={feed.title}
           userId={feed.userId}
@@ -57,6 +58,9 @@ const Discover = () => {
           region={feed.region}
           date={new Date(parseInt(feed.timestamp)).toLocaleString()}
           content={feed.content}
+          likeNum={feed.likes}
+          liked={feed.liked}
+          commentNum={feed.commentNum}
         />
       );
     });
