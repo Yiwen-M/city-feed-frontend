@@ -57,11 +57,11 @@ const menuItems = [
 const SideMenu = (props) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleMenuOpen = () => {
+  const menuOpenHandler = () => {
     setMenuOpen(true);
   };
 
-  const handleMenuClose = () => {
+  const menuCloseHandler = () => {
     setMenuOpen(false);
   };
 
@@ -131,7 +131,7 @@ const SideMenu = (props) => {
             disableRipple
             color="inherit"
             aria-label="open side menu"
-            onClick={handleMenuOpen}
+            onClick={menuOpenHandler}
             sx={{
               marginRight: 5,
               ...(menuOpen && { display: 'none' }),
@@ -159,7 +159,7 @@ const SideMenu = (props) => {
           <IconButton
             disableFocusRipple
             disableRipple
-            onClick={handleMenuClose}
+            onClick={menuCloseHandler}
           >
             <CloseMenuIcon />
           </IconButton>

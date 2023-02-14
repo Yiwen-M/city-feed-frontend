@@ -5,7 +5,7 @@ import { POST_FEED_URL, API_KEY } from '../../../keys';
 
 import MediaFileUpload from './MediaFileUpload/MediaFileUpload';
 import FeedDetails from './FeedDetails/FeedDetails';
-import ConfirmPreview from './ComfirmPreview/ConfirmPreview';
+import ConfirmPreview from './ConfirmPreview/ConfirmPreview';
 
 const CreateForm = (props) => {
   const date = new Date().toLocaleString(); //to show on preview

@@ -14,11 +14,13 @@ const Discover = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const curUserId = 'testUser'; //hard coded for now
+
   const getFeedListHandler = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(GET_FEED_URL, {
+      const response = await fetch(GET_FEED_URL + curUserId, {
         method: 'GET',
         headers: { 'x-api-key': API_KEY },
       });
@@ -48,6 +50,7 @@ const Discover = () => {
       return (
         <FeedCard
           key={feed.feedId}
+          feedId={feed.feedId}
           avatar={feed.avatar}
           title={feed.title}
           userId={feed.userId}
@@ -55,6 +58,9 @@ const Discover = () => {
           region={feed.region}
           date={new Date(parseInt(feed.timestamp)).toLocaleString()}
           content={feed.content}
+          likeNum={feed.likes}
+          liked={feed.liked}
+          commentNum={feed.commentNum}
         />
       );
     });
