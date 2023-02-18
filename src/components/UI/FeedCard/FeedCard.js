@@ -62,27 +62,23 @@ const FeedCard = (props) => {
     </IconButton>
   );
 
-  const changeLikeStatusHandler = () => {
-    setFeedLikeStatus(feedLikeStatus === '0' ? '1' : '0');
+  const clickLikeHandler = () => {
+    likeFeedHandler();
     setDisableLikeBtn(true);
     setTimeout(() => {
       setDisableLikeBtn(false);
     }, 2000);
   };
 
-  useEffect(() => {
-    likeFeedHandler();
-  }, [feedLikeStatus]);
-
   async function likeFeedHandler() {
+    const curStatus = feedLikeStatus === '0' ? '1' : '0';
+    setFeedLikeStatus(curStatus);
     const likeFeedBody = {
       userId: 'testUser',
       feedId: feedId,
-      like: feedLikeStatus,
+      like: curStatus,
     };
-    if (likeFeedBody.like === liked) {
-      return;
-    }
+    console.log(likeFeedBody);
     try {
       const response = await fetch(LIKE_FEED_URL, {
         method: 'POST',
@@ -93,6 +89,7 @@ const FeedCard = (props) => {
         },
       });
       const data = await response.json();
+      setFeedLikeStatus(data.liked);
       console.log(data);
     } catch (error) {
       console.log(error.message);
@@ -168,7 +165,7 @@ const FeedCard = (props) => {
             disableFocusRipple
             disableRipple
             aria-label="add to favorites"
-            onClick={changeLikeStatusHandler}
+            onClick={clickLikeHandler}
             style={{ position: 'absolute', left: '1110px' }}
             sx={{ color: feedLikeStatus === '1' ? pink[500] : 'action' }}
             disabled={disableLikeBtn}
