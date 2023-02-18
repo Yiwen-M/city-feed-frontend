@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-import { GET_USER_URL, API_KEY } from '../keys';
+import { GET_USER_URL, GET_FAV_LIST_URL, API_KEY } from '../keys';
 
 import Header from '../components/UI/Header/Header';
 import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
@@ -15,13 +15,23 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
 const UserProfile = () => {
+  const [tabValue, setTabValue] = useState(0);
   const [userDetail, setUserDetail] = useState(null);
+  const [favList, setFavList] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const [tabValue, setTabValue] = useState(0);
-
   const changeTabHandler = (event, newTabValue) => {
+    switch (newTabValue) {
+      case 0:
+        getUserDetailHandler();
+        break;
+      case 1:
+        getFavoriteListHandler();
+        break;
+      default:
+        break;
+    }
     console.log(newTabValue);
     setTabValue(newTabValue);
   };
@@ -53,7 +63,31 @@ const UserProfile = () => {
 
   useEffect(() => {
     getUserDetailHandler();
-  }, [getUserDetailHandler]);
+  }, []);
+
+  const getFavoriteListHandler = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(GET_FAV_LIST_URL + curUserId, {
+        method: 'GET',
+        headers: { 'x-api-key': API_KEY },
+      });
+      if (!response.ok) {
+        throw new Error('Something went wrong, please refresh the page!');
+      }
+      const data = await response.json();
+      console.log(data.feedList);
+      setFavList(data.feedList);
+    } catch (error) {
+      setError(error.message);
+    }
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    getFavoriteListHandler();
+  }, []);
 
   let content = (
     <div style={{ marginTop: '180px', marginLeft: '750px' }}>
@@ -61,8 +95,8 @@ const UserProfile = () => {
     </div>
   );
 
-  if (userDetail) {
-    if (tabValue === 0) {
+  if (tabValue === 0) {
+    if (userDetail) {
       content = (
         <>
           <UserProfileCard
@@ -111,7 +145,9 @@ const UserProfile = () => {
           })}
         </>
       );
-    } else {
+    }
+  } else if (tabValue === 1) {
+    if (favList) {
       content = (
         <>
           <UserProfileCard
@@ -144,7 +180,7 @@ const UserProfile = () => {
               label="Favorite Post"
             />
           </Tabs>
-          {favoriteList.map((feed) => {
+          {favList.map((feed) => {
             return (
               <FeedCard
                 key={feed.feedId}
@@ -161,6 +197,7 @@ const UserProfile = () => {
         </>
       );
     }
+    
   }
 
   if (error) {
