@@ -39,14 +39,14 @@ const Discover = () => {
     getFeedListHandler();
   }, [getFeedListHandler]);
 
-  let content = (
+  let pageContent = (
     <div style={{ marginTop: '180px', marginLeft: '750px' }}>
       <CircularProgress size="10rem" thickness={2} sx={{ color: '#aebdca' }} />
     </div>
   );
 
   if (feedList.length > 0) {
-    content = feedList.map((feed) => {
+    pageContent = feedList.map((feed) => {
       return (
         <FeedCard
           key={feed.feedId}
@@ -67,7 +67,7 @@ const Discover = () => {
   }
 
   if (error) {
-    content = (
+    pageContent = (
       <WrapperCard>
         <p
           style={{ marginTop: '180px', marginLeft: '750px', fontSize: '20px' }}
@@ -79,7 +79,7 @@ const Discover = () => {
   }
 
   if (isLoading) {
-    content = (
+    pageContent = (
       <div style={{ marginTop: '180px', marginLeft: '750px' }}>
         <CircularProgress
           size="10rem"
@@ -93,7 +93,7 @@ const Discover = () => {
   return (
     <>
       <Header />
-      <PageWrapper>{content}</PageWrapper>
+      <PageWrapper>{pageContent}</PageWrapper>
     </>
   );
 };
