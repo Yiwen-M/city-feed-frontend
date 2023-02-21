@@ -6,8 +6,11 @@ import Header from '../components/UI/Header/Header';
 import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
 import FeedCard from '../components/UI/FeedCard/FeedCard';
 import WrapperCard from '../components/UI/WapperCard/WrapperCard';
+import { CardStyled } from '../components/UI/FeedCard/FeedCardStyles';
 
-import CircularProgress from '@mui/material/CircularProgress';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+import Skeleton from '@mui/material/Skeleton';
 
 const Discover = () => {
   const [feedList, setFeedList] = useState([]);
@@ -34,15 +37,40 @@ const Discover = () => {
     }
     setIsLoading(false);
   }, []);
+  // });
 
   useEffect(() => {
     getFeedListHandler();
   }, [getFeedListHandler]);
 
   let pageContent = (
-    <div style={{ marginTop: '180px', marginLeft: '750px' }}>
-      <CircularProgress size="10rem" thickness={2} sx={{ color: '#aebdca' }} />
-    </div>
+    <CardStyled>
+      <CardHeader
+        avatar={
+          <Skeleton
+            animation="wave"
+            variant="circular"
+            width={40}
+            height={40}
+          />
+        }
+        title={
+          <Skeleton
+            animation="wave"
+            height={15}
+            width="25%"
+            style={{ marginBottom: 8 }}
+          />
+        }
+        subheader={<Skeleton animation="wave" height={10} width="20%" />}
+      />
+      <Skeleton sx={{ height: 400 }} animation="wave" variant="rectangular" />
+      <CardContent>
+        <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+        <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+        <Skeleton animation="wave" height={10} width="80%" />
+      </CardContent>
+    </CardStyled>
   );
 
   if (feedList.length > 0) {
@@ -80,13 +108,33 @@ const Discover = () => {
 
   if (isLoading) {
     pageContent = (
-      <div style={{ marginTop: '180px', marginLeft: '750px' }}>
-        <CircularProgress
-          size="10rem"
-          thickness={2}
-          sx={{ color: '#aebdca' }}
+      <CardStyled>
+        <CardHeader
+          avatar={
+            <Skeleton
+              animation="wave"
+              variant="circular"
+              width={40}
+              height={40}
+            />
+          }
+          title={
+            <Skeleton
+              animation="wave"
+              height={15}
+              width="25%"
+              style={{ marginBottom: 8 }}
+            />
+          }
+          subheader={<Skeleton animation="wave" height={10} width="20%" />}
         />
-      </div>
+        <Skeleton sx={{ height: 400 }} animation="wave" variant="rectangular" />
+        <CardContent>
+          <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+          <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+          <Skeleton animation="wave" height={10} width="80%" />
+        </CardContent>
+      </CardStyled>
     );
   }
 

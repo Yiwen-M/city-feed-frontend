@@ -7,10 +7,13 @@ import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
 import UserProfileCard from '../components/UI/UserProfileCard/UserProfileCard';
 import WrapperCard from '../components/UI/WapperCard/WrapperCard';
 import FeedCard from '../components/UI/FeedCard/FeedCard';
+import { CardStyled } from '../components/UI/FeedCard/FeedCardStyles';
 
-import CircularProgress from '@mui/material/CircularProgress';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+import Skeleton from '@mui/material/Skeleton';
 
 const UserProfile = () => {
   const [tabValue, setTabValue] = useState(0);
@@ -88,9 +91,33 @@ const UserProfile = () => {
   }, []);
 
   let pageContent = (
-    <div style={{ marginTop: '180px', marginLeft: '750px' }}>
-      <CircularProgress size="10rem" thickness={2} sx={{ color: '#aebdca' }} />
-    </div>
+    <CardStyled>
+      <CardHeader
+        avatar={
+          <Skeleton
+            animation="wave"
+            variant="circular"
+            width={40}
+            height={40}
+          />
+        }
+        title={
+          <Skeleton
+            animation="wave"
+            height={15}
+            width="25%"
+            style={{ marginBottom: 8 }}
+          />
+        }
+        subheader={<Skeleton animation="wave" height={10} width="20%" />}
+      />
+      <Skeleton sx={{ height: 400 }} animation="wave" variant="rectangular" />
+      <CardContent>
+        <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+        <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+        <Skeleton animation="wave" height={10} width="80%" />
+      </CardContent>
+    </CardStyled>
   );
 
   if (tabValue === 0) {
@@ -151,13 +178,41 @@ const UserProfile = () => {
 
   if (isLoading) {
     pageContent = (
-      <div style={{ marginTop: '180px', marginLeft: '750px' }}>
-        <CircularProgress
-          size="10rem"
-          thickness={2}
-          sx={{ color: '#aebdca' }}
+      // <div style={{ marginTop: '180px', marginLeft: '750px' }}>
+      //   <CircularProgress
+      //     size="10rem"
+      //     thickness={2}
+      //     sx={{ color: '#aebdca' }}
+      //   />
+      // </div>
+      <CardStyled>
+        <CardHeader
+          avatar={
+            <Skeleton
+              animation="wave"
+              variant="circular"
+              width={40}
+              height={40}
+            />
+          }
+          title={
+            <Skeleton
+              animation="wave"
+              height={15}
+              width="25%"
+              style={{ marginBottom: 8 }}
+            />
+          }
+          subheader={<Skeleton animation="wave" height={10} width="20%" />}
         />
-      </div>
+        <Skeleton sx={{ height: 400 }} animation="wave" variant="rectangular" />
+
+        <CardContent>
+          <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+          <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+          <Skeleton animation="wave" height={10} width="80%" />
+        </CardContent>
+      </CardStyled>
     );
   }
 
