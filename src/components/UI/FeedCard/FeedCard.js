@@ -37,6 +37,7 @@ const FeedCard = (props) => {
 
   const [expanded, setExpanded] = useState(false);
   const [feedLikeStatus, setFeedLikeStatus] = useState(liked);
+  const [feedLikeNum, setFeedLikeNum] = useState(likeNum);
   const [disableLikeBtn, setDisableLikeBtn] = useState(false);
   const [showFailMessage, setShowFailMessage] = useState(false);
 
@@ -78,7 +79,6 @@ const FeedCard = (props) => {
       feedId: feedId,
       like: curStatus,
     };
-    console.log(likeFeedBody);
     try {
       const response = await fetch(LIKE_FEED_URL, {
         method: 'POST',
@@ -90,7 +90,7 @@ const FeedCard = (props) => {
       });
       const data = await response.json();
       setFeedLikeStatus(data.liked);
-      console.log(data);
+      setFeedLikeNum(data.likes);
     } catch (error) {
       console.log(error.message);
       setShowFailMessage(true);
@@ -171,7 +171,7 @@ const FeedCard = (props) => {
             disabled={disableLikeBtn}
           >
             <FavoriteIcon style={{ marginRight: 20 }} />
-            <span style={{ fontSize: '20px' }}>{likeNum}</span>
+            <span style={{ fontSize: '20px' }}>{feedLikeNum}</span>
           </IconButton>
           <ExpandMore
             expand={expanded}
