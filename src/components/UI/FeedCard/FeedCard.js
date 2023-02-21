@@ -166,19 +166,22 @@ const FeedCard = (props) => {
             disableRipple
             aria-label="add to favorites"
             onClick={clickLikeHandler}
-            style={{ position: 'absolute', left: '1110px' }}
+            style={{ position: 'absolute', left: '1125px' }}
             sx={{ color: feedLikeStatus === '1' ? pink[500] : 'action' }}
             disabled={disableLikeBtn}
           >
-            <FavoriteIcon />
+            <FavoriteIcon style={{ marginRight: 20 }} />
+            <span style={{ fontSize: '20px' }}>{likeNum}</span>
           </IconButton>
           <ExpandMore
             expand={expanded}
             onClick={expandClickHandler}
+            style={{ position: 'absolute', left: '1300px' }}
             aria-expanded={expanded}
             aria-label="see and send comments"
           >
-            <MapsUgcIcon />
+            <MapsUgcIcon style={{ marginRight: 20 }} />
+            <span style={{ fontSize: '20px' }}>{commentNum}</span>
           </ExpandMore>
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
