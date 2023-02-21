@@ -6,6 +6,9 @@ import { POST_FEED_URL, API_KEY } from '../../../keys';
 import MediaFileUpload from './MediaFileUpload/MediaFileUpload';
 import FeedDetails from './FeedDetails/FeedDetails';
 import ConfirmPreview from './ConfirmPreview/ConfirmPreview';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const CreateForm = (props) => {
   const date = new Date().toLocaleString(); //to show on preview
@@ -20,6 +23,8 @@ const CreateForm = (props) => {
 
   const [title, setTitle] = useState(''); //to pass to backend
   const [content, setContent] = useState(''); //to pass to backend
+
+  const [showFailMessage, setShowFailMessage] = useState(false);
 
   const nextStep = () => {
     const curStep = step;
@@ -94,6 +99,24 @@ const CreateForm = (props) => {
     console.log(content);
   };
 
+  const closeSnackBarHandler = () => {
+    setShowFailMessage(false);
+  };
+
+  const vertical = 'bottom';
+  const horizontal = 'center';
+
+  const closeAction = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="inherit"
+      onClick={closeSnackBarHandler}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  );
+
   let navigate = useNavigate();
 
   async function submitHandler() {
@@ -116,11 +139,11 @@ const CreateForm = (props) => {
       });
       const data = await response.json();
       console.log(data);
-
       let path = '/discover';
       navigate(path);
     } catch (error) {
       console.log(error.message);
+      setShowFailMessage(true);
     }
   }
 
@@ -148,14 +171,24 @@ const CreateForm = (props) => {
       );
     case 3:
       return (
-        <ConfirmPreview
-          title={title}
-          imagePreviewURL={imagePreviewURL}
-          date={date}
-          content={content}
-          prevStep={prevStep}
-          submitHandler={submitHandler}
-        />
+        <>
+          <ConfirmPreview
+            title={title}
+            imagePreviewURL={imagePreviewURL}
+            date={date}
+            content={content}
+            prevStep={prevStep}
+            submitHandler={submitHandler}
+          />
+          <Snackbar
+            anchorOrigin={{ vertical, horizontal }}
+            open={showFailMessage}
+            autoHideDuration={4000}
+            message="Something went wrong, please try again!"
+            onClose={closeSnackBarHandler}
+            action={closeAction}
+          />
+        </>
       );
     default:
       return (
