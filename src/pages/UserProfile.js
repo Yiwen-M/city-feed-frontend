@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { GET_USER_URL, GET_FAV_LIST_URL, API_KEY } from '../keys';
 
@@ -22,33 +22,18 @@ const UserProfile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const changeTabHandler = (event, newTabValue) => {
-    switch (newTabValue) {
-      case 0:
-        getUserDetailHandler();
-        break;
-      case 1:
-        getFavoriteListHandler();
-        break;
-      default:
-        break;
-    }
-    console.log(newTabValue);
-    setTabValue(newTabValue);
-  };
-
   const curUserId = 'testUser'; //hard coded for now
   const curFollower = 0; //hard coded for now
   const curFollowing = 0; //hard coded for now
   const getUserDetailParams = { userId: 'testUser' };
-  const getFavListParams = { userId: 'testUser' };
 
-  const getUserDetailHandler = async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
+  useEffect(() => {
+    const getUserDetailHandler = async () => {
+      const curURL = tabValue == 0 ? GET_USER_URL : GET_FAV_LIST_URL;
+      setIsLoading(true);
+      setError(null);
       const response = await fetch(
-        GET_USER_URL + new URLSearchParams(getUserDetailParams).toString(),
+        curURL + new URLSearchParams(getUserDetailParams).toString(),
         {
           method: 'GET',
           headers: { 'x-api-key': API_KEY },
@@ -58,36 +43,22 @@ const UserProfile = () => {
         throw new Error('Something went wrong, please refresh the page!');
       }
       const data = await response.json();
-      console.log(data.userDetails);
-      localStorage.setItem('avatar', data.userDetails.avatar);
-      setUserDetail(data.userDetails);
-    } catch (error) {
-      setError(error.message);
-    }
-    setIsLoading(false);
-  };
-
-  const getFavoriteListHandler = async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(
-        GET_FAV_LIST_URL + new URLSearchParams(getFavListParams).toString(),
-        {
-          method: 'GET',
-          headers: { 'x-api-key': API_KEY },
-        }
-      );
-      if (!response.ok) {
-        throw new Error('Something went wrong, please refresh the page!');
+      if (data.userDetails) {
+        console.log(data.userDetails);
+        localStorage.setItem('avatar', data.userDetails.avatar);
+        setUserDetail(data.userDetails);
+      } else if (data.feedList) {
+        console.log(data.feedList);
+        setFavList(data.feedList);
       }
-      const data = await response.json();
-      console.log(data.feedList);
-      setFavList(data.feedList);
-    } catch (error) {
-      setError(error.message);
-    }
-    setIsLoading(false);
+      setIsLoading(false);
+    };
+    getUserDetailHandler().catch(console.error);
+  }, [tabValue]);
+
+  const changeTabHandler = (event, newTabValue) => {
+    console.log(newTabValue);
+    setTabValue(newTabValue);
   };
 
   let pageContent = (
