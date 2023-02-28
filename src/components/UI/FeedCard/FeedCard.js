@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { LIKE_FEED_URL, API_KEY } from '../../../keys';
 
@@ -71,7 +71,7 @@ const FeedCard = (props) => {
     }, 2000);
   };
 
-  async function likeFeedHandler() {
+  const likeFeedHandler = async () => {
     const curStatus = feedLikeStatus === '0' ? '1' : '0';
     setFeedLikeStatus(curStatus);
     const likeFeedBody = {
@@ -95,7 +95,7 @@ const FeedCard = (props) => {
       console.log(error.message);
       setShowFailMessage(true);
     }
-  }
+  };
 
   return (
     <>

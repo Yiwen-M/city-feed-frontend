@@ -119,7 +119,7 @@ const CreateForm = (props) => {
 
   let navigate = useNavigate();
 
-  async function submitHandler() {
+  const submitHandler = async () => {
     const postContent = {
       userId: 'testUser',
       title: title,
@@ -145,7 +145,7 @@ const CreateForm = (props) => {
       console.log(error.message);
       setShowFailMessage(true);
     }
-  }
+  };
 
   switch (step) {
     case 1:

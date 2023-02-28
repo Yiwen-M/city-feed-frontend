@@ -1,4 +1,4 @@
-import WrapperCard from '../../WapperCard/WrapperCard';
+import WrapperCard from '../../WrapperCard/WrapperCard';
 
 import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';

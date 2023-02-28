@@ -1,11 +1,11 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 
 import { GET_USER_URL, GET_FAV_LIST_URL, API_KEY } from '../keys';
 
 import Header from '../components/UI/Header/Header';
 import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
 import UserProfileCard from '../components/UI/UserProfileCard/UserProfileCard';
-import WrapperCard from '../components/UI/WapperCard/WrapperCard';
+import WrapperCard from '../components/UI/WrapperCard/WrapperCard';
 import FeedCard from '../components/UI/FeedCard/FeedCard';
 import { CardStyled } from '../components/UI/FeedCard/FeedCardStyles';
 
@@ -22,73 +22,44 @@ const UserProfile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const changeTabHandler = (event, newTabValue) => {
-    switch (newTabValue) {
-      case 0:
-        getUserDetailHandler();
-        break;
-      case 1:
-        getFavoriteListHandler();
-        break;
-      default:
-        break;
-    }
-    console.log(newTabValue);
-    setTabValue(newTabValue);
-  };
-
   const curUserId = 'testUser'; //hard coded for now
   const curFollower = 0; //hard coded for now
   const curFollowing = 0; //hard coded for now
+  const getUserDetailParams = { userId: 'testUser' };
 
-  const getUserDetailHandler = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(GET_USER_URL + curUserId, {
-        method: 'GET',
-        headers: { 'x-api-key': API_KEY },
-      });
+  useEffect(() => {
+    const getUserDetailHandler = async () => {
+      const curURL = tabValue == 0 ? GET_USER_URL : GET_FAV_LIST_URL;
+      setIsLoading(true);
+      setError(null);
+      const response = await fetch(
+        curURL + new URLSearchParams(getUserDetailParams).toString(),
+        {
+          method: 'GET',
+          headers: { 'x-api-key': API_KEY },
+        }
+      );
       if (!response.ok) {
         throw new Error('Something went wrong, please refresh the page!');
       }
       const data = await response.json();
-      console.log(data.userDetails);
-      localStorage.setItem('avatar', data.userDetails.avatar);
-      setUserDetail(data.userDetails);
-    } catch (error) {
-      setError(error.message);
-    }
-    setIsLoading(false);
-  }, []);
-
-  useEffect(() => {
-    getUserDetailHandler();
-  }, []);
-
-  const getFavoriteListHandler = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(GET_FAV_LIST_URL + curUserId, {
-        method: 'GET',
-        headers: { 'x-api-key': API_KEY },
-      });
-      if (!response.ok) {
-        throw new Error('Something went wrong, please refresh the page!');
+      if (data.userDetails) {
+        console.log(data.userDetails);
+        localStorage.setItem('avatar', data.userDetails.avatar);
+        setUserDetail(data.userDetails);
+      } else if (data.feedList) {
+        console.log(data.feedList);
+        setFavList(data.feedList);
       }
-      const data = await response.json();
-      console.log(data.feedList);
-      setFavList(data.feedList);
-    } catch (error) {
-      setError(error.message);
-    }
-    setIsLoading(false);
-  }, []);
+      setIsLoading(false);
+    };
+    getUserDetailHandler().catch(console.error);
+  }, [tabValue]);
 
-  useEffect(() => {
-    getFavoriteListHandler();
-  }, []);
+  const changeTabHandler = (event, newTabValue) => {
+    console.log(newTabValue);
+    setTabValue(newTabValue);
+  };
 
   let pageContent = (
     <CardStyled>
