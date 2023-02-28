@@ -1,4 +1,4 @@
-import WrapperCard from '../../WapperCard/WrapperCard';
+import WrapperCard from '../../WrapperCard/WrapperCard';
 
 import { WrapperTextStyled, BottomBtn } from './FeedDetailsStyles';
 

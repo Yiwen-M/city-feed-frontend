@@ -1,19 +1,19 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState } from 'react';
 
-import { GET_USER_URL, GET_FAV_LIST_URL, API_KEY } from "../keys";
+import { GET_USER_URL, GET_FAV_LIST_URL, API_KEY } from '../keys';
 
-import Header from "../components/UI/Header/Header";
-import PageWrapper from "../components/UI/PageWrapper/PageWrapper";
-import UserProfileCard from "../components/UI/UserProfileCard/UserProfileCard";
-import WrapperCard from "../components/UI/WapperCard/WrapperCard";
-import FeedCard from "../components/UI/FeedCard/FeedCard";
-import { CardStyled } from "../components/UI/FeedCard/FeedCardStyles";
+import Header from '../components/UI/Header/Header';
+import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
+import UserProfileCard from '../components/UI/UserProfileCard/UserProfileCard';
+import WrapperCard from '../components/UI/WrapperCard/WrapperCard';
+import FeedCard from '../components/UI/FeedCard/FeedCard';
+import { CardStyled } from '../components/UI/FeedCard/FeedCardStyles';
 
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import CardHeader from "@mui/material/CardHeader";
-import CardContent from "@mui/material/CardContent";
-import Skeleton from "@mui/material/Skeleton";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+import Skeleton from '@mui/material/Skeleton';
 
 const UserProfile = () => {
   const [tabValue, setTabValue] = useState(0);
@@ -37,53 +37,49 @@ const UserProfile = () => {
     setTabValue(newTabValue);
   };
 
-  const curUserId = "testUser"; //hard coded for now
-  const getUserDetailParams = { userId: "testUser" };
-  const getFavListParams = { userId: "testUser" };
+  const curUserId = 'testUser'; //hard coded for now
   const curFollower = 0; //hard coded for now
   const curFollowing = 0; //hard coded for now
+  const getUserDetailParams = { userId: 'testUser' };
+  const getFavListParams = { userId: 'testUser' };
 
-  const getUserDetailHandler = useCallback(async () => {
+  const getUserDetailHandler = async () => {
     setIsLoading(true);
     setError(null);
     try {
       const response = await fetch(
         GET_USER_URL + new URLSearchParams(getUserDetailParams).toString(),
         {
-          method: "GET",
-          headers: { "x-api-key": API_KEY },
+          method: 'GET',
+          headers: { 'x-api-key': API_KEY },
         }
       );
       if (!response.ok) {
-        throw new Error("Something went wrong, please refresh the page!");
+        throw new Error('Something went wrong, please refresh the page!');
       }
       const data = await response.json();
       console.log(data.userDetails);
-      localStorage.setItem("avatar", data.userDetails.avatar);
+      localStorage.setItem('avatar', data.userDetails.avatar);
       setUserDetail(data.userDetails);
     } catch (error) {
       setError(error.message);
     }
     setIsLoading(false);
-  }, []);
+  };
 
-  useEffect(() => {
-    getUserDetailHandler();
-  }, []);
-
-  const getFavoriteListHandler = useCallback(async () => {
+  const getFavoriteListHandler = async () => {
     setIsLoading(true);
     setError(null);
     try {
       const response = await fetch(
         GET_FAV_LIST_URL + new URLSearchParams(getFavListParams).toString(),
         {
-          method: "GET",
-          headers: { "x-api-key": API_KEY },
+          method: 'GET',
+          headers: { 'x-api-key': API_KEY },
         }
       );
       if (!response.ok) {
-        throw new Error("Something went wrong, please refresh the page!");
+        throw new Error('Something went wrong, please refresh the page!');
       }
       const data = await response.json();
       console.log(data.feedList);
@@ -92,11 +88,7 @@ const UserProfile = () => {
       setError(error.message);
     }
     setIsLoading(false);
-  }, []);
-
-  useEffect(() => {
-    getFavoriteListHandler();
-  }, []);
+  };
 
   let pageContent = (
     <CardStyled>
@@ -176,7 +168,7 @@ const UserProfile = () => {
     pageContent = (
       <WrapperCard>
         <p
-          style={{ marginTop: "180px", marginLeft: "750px", fontSize: "20px" }}
+          style={{ marginTop: '180px', marginLeft: '750px', fontSize: '20px' }}
         >
           {error}
         </p>
@@ -229,7 +221,7 @@ const UserProfile = () => {
       <Header />
       <PageWrapper>
         <UserProfileCard
-          avatar={localStorage.getItem("avatar")}
+          avatar={localStorage.getItem('avatar')}
           userId={curUserId}
           following={curFollowing}
           follower={curFollower}
@@ -239,22 +231,22 @@ const UserProfile = () => {
           onChange={changeTabHandler}
           TabIndicatorProps={{
             style: {
-              backgroundColor: "#aebdca",
+              backgroundColor: '#aebdca',
             },
           }}
-          style={{ marginLeft: "600px", marginBottom: "30px" }}
+          style={{ marginLeft: '600px', marginBottom: '30px' }}
           aria-label="profile page tabs"
         >
           <Tab
             disableFocusRipple
             disableRipple
-            style={{ color: "#616161", width: "300px", fontSize: "15px" }}
+            style={{ color: '#616161', width: '300px', fontSize: '15px' }}
             label="My Feeds"
           />
           <Tab
             disableFocusRipple
             disableRipple
-            style={{ color: "#616161", width: "300px", fontSize: "15px" }}
+            style={{ color: '#616161', width: '300px', fontSize: '15px' }}
             label="Favorite Feeds"
           />
         </Tabs>

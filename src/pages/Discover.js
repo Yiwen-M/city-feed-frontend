@@ -1,48 +1,44 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from 'react';
 
-import { GET_FEED_URL, API_KEY } from "../keys";
+import { GET_FEED_URL, API_KEY } from '../keys';
 
-import Header from "../components/UI/Header/Header";
-import PageWrapper from "../components/UI/PageWrapper/PageWrapper";
-import FeedCard from "../components/UI/FeedCard/FeedCard";
-import WrapperCard from "../components/UI/WapperCard/WrapperCard";
-import { CardStyled } from "../components/UI/FeedCard/FeedCardStyles";
+import Header from '../components/UI/Header/Header';
+import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
+import FeedCard from '../components/UI/FeedCard/FeedCard';
+import WrapperCard from '../components/UI/WrapperCard/WrapperCard';
+import { CardStyled } from '../components/UI/FeedCard/FeedCardStyles';
 
-import CardHeader from "@mui/material/CardHeader";
-import CardContent from "@mui/material/CardContent";
-import Skeleton from "@mui/material/Skeleton";
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+import Skeleton from '@mui/material/Skeleton';
 
 const Discover = () => {
   const [feedList, setFeedList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // const curUserId = 'testUser'; //hard coded for now
-  const getFeedListParams = { region: "seattle", userId: "testUser" };
+  const getFeedListParams = { region: 'seattle', userId: 'testUser' };
 
-  const getFeedListHandler = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(GET_FEED_URL + new URLSearchParams(getFeedListParams).toString(), {
-        method: "GET",
-        headers: { "x-api-key": API_KEY },
-      });
+  useEffect(() => {
+    const getFeedListHandler = async () => {
+      setIsLoading(true);
+      setError(null);
+      const response = await fetch(
+        GET_FEED_URL + new URLSearchParams(getFeedListParams).toString(),
+        {
+          method: 'GET',
+          headers: { 'x-api-key': API_KEY },
+        }
+      );
       if (!response.ok) {
-        throw new Error("Something went wrong, please refresh the page!");
+        throw new Error('Something went wrong, please refresh the page!');
       }
       const data = await response.json();
       setFeedList(data.feedList);
-    } catch (error) {
-      setError(error.message);
-    }
-    setIsLoading(false);
+      setIsLoading(false);
+    };
+    getFeedListHandler().catch(console.error);
   }, []);
-  // });
-
-  useEffect(() => {
-    getFeedListHandler();
-  }, [getFeedListHandler]);
 
   let pageContent = (
     <CardStyled>
@@ -99,7 +95,7 @@ const Discover = () => {
     pageContent = (
       <WrapperCard>
         <p
-          style={{ marginTop: "180px", marginLeft: "750px", fontSize: "20px" }}
+          style={{ marginTop: '180px', marginLeft: '750px', fontSize: '20px' }}
         >
           {error}
         </p>

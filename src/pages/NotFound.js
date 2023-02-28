@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Header from '../components/UI/Header/Header';
 import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
-import WrapperCard from '../components/UI/WapperCard/WrapperCard';
+import WrapperCard from '../components/UI/WrapperCard/WrapperCard';
 
 const NotFound = () => {
   let navigate = useNavigate();
