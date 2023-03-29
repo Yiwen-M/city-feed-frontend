@@ -89,7 +89,7 @@ const FeedCard = (props) => {
         },
       });
       const data = await response.json();
-      setFeedLikeStatus(data.liked);
+      setFeedLikeStatus(data.liked.toString());
       setFeedLikeNum(data.likes);
     } catch (error) {
       console.log(error.message);

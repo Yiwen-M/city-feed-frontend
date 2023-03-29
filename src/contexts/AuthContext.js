@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from 'react';
 
-import * as cognito from "../lib/cognito";
+import * as cognito from '../lib/cognito';
 
 export const AuthStatus = {
   Loading: 0,
@@ -40,9 +40,9 @@ const AuthProvider = ({ children }) => {
           idToken: session.idToken.jwtToken,
           refreshToken: session.refreshToken.token,
         });
-        window.localStorage.setItem("idToken", `${session.idToken.jwtToken}`);
+        window.localStorage.setItem('cityFeedIdToken', `${session.idToken.jwtToken}`);
         window.localStorage.setItem(
-          "refreshToken",
+          'cityFeedRefreshToken',
           `${session.refreshToken.token}`
         );
         const attr = await getAttributes();

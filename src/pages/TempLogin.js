@@ -1,9 +1,9 @@
-import Signin from "./auth/Signin";
-import Signout from "./auth/Signout";
+import Signin from './auth/Signin';
+import Signout from './auth/Signout';
 import AuthProvider, {
   AuthIsSignedIn,
   AuthIsNotSignedIn,
-} from "../contexts/AuthContext";
+} from '../contexts/AuthContext';
 
 const TempLogin = () => {
   return (

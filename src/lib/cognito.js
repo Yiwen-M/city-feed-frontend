@@ -3,9 +3,9 @@ import {
   CognitoUser,
   CognitoUserAttribute,
   CognitoUserPool,
-} from "amazon-cognito-identity-js";
+} from 'amazon-cognito-identity-js';
 
-import { USER_POOL_ID, USER_POOL_CLIENT_ID } from "../keys";
+import { USER_POOL_ID, USER_POOL_CLIENT_ID } from '../keys';
 
 const poolData = {
   UserPoolId: `${USER_POOL_ID}`,
