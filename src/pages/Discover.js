@@ -1,23 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import { GET_FEED_URL, API_KEY } from '../keys';
+import { GET_FEED_URL, API_KEY } from "../keys";
 
-import Header from '../components/UI/Header/Header';
-import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
-import FeedCard from '../components/UI/FeedCard/FeedCard';
-import WrapperCard from '../components/UI/WrapperCard/WrapperCard';
-import { CardStyled } from '../components/UI/FeedCard/FeedCardStyles';
+import Header from "../components/UI/Header/Header";
+import PageWrapper from "../components/UI/PageWrapper/PageWrapper";
+import FeedCard from "../components/UI/FeedCard/FeedCard";
+import WrapperCard from "../components/UI/WrapperCard/WrapperCard";
+import { CardStyled } from "../components/UI/FeedCard/FeedCardStyles";
 
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import Skeleton from '@mui/material/Skeleton';
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import Skeleton from "@mui/material/Skeleton";
+import TextField from "@mui/material/TextField";
 
 const Discover = () => {
   const [feedList, setFeedList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const getFeedListParams = { region: 'seattle', userId: 'testUser' };
+  const getFeedListParams = { region: "seattle", userId: "testUser" };
 
   useEffect(() => {
     const getFeedListHandler = async () => {
@@ -26,12 +27,12 @@ const Discover = () => {
       const response = await fetch(
         GET_FEED_URL + new URLSearchParams(getFeedListParams).toString(),
         {
-          method: 'GET',
-          headers: { 'x-api-key': API_KEY },
+          method: "GET",
+          headers: { "x-api-key": API_KEY },
         }
       );
       if (!response.ok) {
-        throw new Error('Something went wrong, please refresh the page!');
+        throw new Error("Something went wrong, please refresh the page!");
       }
       const data = await response.json();
       setFeedList(data.feedList);
@@ -95,7 +96,7 @@ const Discover = () => {
     pageContent = (
       <WrapperCard>
         <p
-          style={{ marginTop: '180px', marginLeft: '750px', fontSize: '20px' }}
+          style={{ marginTop: "180px", marginLeft: "750px", fontSize: "20px" }}
         >
           {error}
         </p>
