@@ -7,11 +7,11 @@ import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
 import FeedCard from '../components/UI/FeedCard/FeedCard';
 import WrapperCard from '../components/UI/WrapperCard/WrapperCard';
 import { CardStyled } from '../components/UI/FeedCard/FeedCardStyles';
+import SignOutButton from '../components/UI/SignOutButton/SignOutButton';
 
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import Skeleton from '@mui/material/Skeleton';
-import { height } from '@mui/system';
 
 const Discover = () => {
   const [feedList, setFeedList] = useState([]);
@@ -146,7 +146,9 @@ const Discover = () => {
   return (
     <>
       <Header />
-      <PageWrapper>{pageContent}</PageWrapper>
+      <PageWrapper>
+        {pageContent} <SignOutButton />
+      </PageWrapper>
     </>
   );
 };
