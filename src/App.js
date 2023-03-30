@@ -11,6 +11,7 @@ import Signin from './pages/Signin';
 
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
+import AuthProvider from './contexts/AuthContext';
 
 const appFont = createTheme({
   typography: {
@@ -22,17 +23,19 @@ function App() {
   return (
     <>
       <ThemeProvider theme={appFont}>
-        <Routes>
-          <Route path="/" element={<Discover />} />
-          <Route path="/discover" element={<Discover />} />
-          <Route path="/following" element={<Following />} />
-          <Route path="/messageCenter" element={<MessageCenter />} />
-          <Route path="/setting" element={<Setting />} />
-          <Route path="/userProfile" element={<UserProfile />} />
-          <Route path="/createPost" element={<CreatePost />} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<Discover />} />
+            <Route path="/discover" element={<Discover />} />
+            <Route path="/following" element={<Following />} />
+            <Route path="/messageCenter" element={<MessageCenter />} />
+            <Route path="/setting" element={<Setting />} />
+            <Route path="/userProfile" element={<UserProfile />} />
+            <Route path="/createPost" element={<CreatePost />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AuthProvider>
       </ThemeProvider>
     </>
   );

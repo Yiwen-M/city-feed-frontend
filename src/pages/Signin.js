@@ -10,14 +10,12 @@ import SignInForm from '../components/UI/SignInForm/SignInForm';
 const Signin = () => {
   return (
     <>
-      <AuthProvider>
-        <AuthIsNotSignedIn>
-          <SignInForm />
-        </AuthIsNotSignedIn>
-        <AuthIsSignedIn>
-          <Navigate to="/discover" />;
-        </AuthIsSignedIn>
-      </AuthProvider>
+      <AuthIsNotSignedIn>
+        <SignInForm />
+      </AuthIsNotSignedIn>
+      <AuthIsSignedIn>
+        <Navigate to="/discover" />;
+      </AuthIsSignedIn>
     </>
   );
 };
