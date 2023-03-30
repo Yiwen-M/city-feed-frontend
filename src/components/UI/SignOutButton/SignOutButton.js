@@ -1,9 +1,9 @@
-import {  useContext } from 'react';
+import { useContext } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthContext';
 
-import { SignOutIcon } from './SignOutButtonStyles';
+import { SignOutBtn } from './SignOutButtonStyles';
 
 const SignOutButton = () => {
   const authContext = useContext(AuthContext);
@@ -13,12 +13,15 @@ const SignOutButton = () => {
   const SignOutHandler = async () => {
     try {
       await authContext.signOut();
+      console.log('signout');
       let path = '/discover';
       navigate(path);
-    } catch (err) {}
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  return <SignOutIcon onClick={SignOutHandler}></SignOutIcon>;
+  return <SignOutBtn onClick={SignOutHandler}>Sign Out</SignOutBtn>;
 };
 
 export default SignOutButton;

@@ -7,7 +7,6 @@ import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
 import FeedCard from '../components/UI/FeedCard/FeedCard';
 import WrapperCard from '../components/UI/WrapperCard/WrapperCard';
 import { CardStyled } from '../components/UI/FeedCard/FeedCardStyles';
-import SignOutButton from '../components/UI/SignOutButton/SignOutButton';
 
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -147,7 +146,7 @@ const Discover = () => {
     <>
       <Header />
       <PageWrapper>
-        {pageContent} <SignOutButton />
+        {pageContent} 
       </PageWrapper>
     </>
   );

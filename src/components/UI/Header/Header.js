@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
+import { AuthContext, AuthStatus } from '../../../contexts/AuthContext';
+import SignOutButton from '../SignOutButton/SignOutButton';
 
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -54,7 +57,7 @@ const menuItems = [
   },
 ];
 
-const SideMenu = (props) => {
+const Header = (props) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const menuOpenHandler = () => {
@@ -81,6 +84,37 @@ const SideMenu = (props) => {
     let path = '/createPost';
     navigate(path);
   };
+
+  const { authStatus } = useContext(AuthContext);
+
+  let rightHeaderContent = (
+    <>
+      <CreateIcon onClick={createIconRouteHandler} />
+      <ProfileIcon onClick={userIconRouteHandler} />
+    </>
+  );
+
+  if (authStatus === AuthStatus.SignedIn) {
+    // user is signed in
+    rightHeaderContent = (
+      <>
+        <CreateIcon
+          onClick={createIconRouteHandler}
+          style={{ right: '15rem' }}
+        />
+        <ProfileIcon onClick={userIconRouteHandler} style={{ right: '9rem' }} />
+        <SignOutButton />
+      </>
+    );
+  } else {
+    // user is not signed in
+    rightHeaderContent = (
+      <>
+        <CreateIcon onClick={createIconRouteHandler} />
+        <ProfileIcon onClick={userIconRouteHandler} />
+      </>
+    );
+  }
 
   const menuBtnArr = menuItems.map((item) => {
     return (
@@ -149,8 +183,7 @@ const SideMenu = (props) => {
               City Feed
             </SiteNameWhenMenuOpen>
           )}
-          <CreateIcon onClick={createIconRouteHandler}/>
-          <ProfileIcon onClick={userIconRouteHandler} />
+          {rightHeaderContent}
         </HeaderStyled>
       </HeaderBar>
 
@@ -171,4 +204,4 @@ const SideMenu = (props) => {
   );
 };
 
-export default SideMenu;
+export default Header;
