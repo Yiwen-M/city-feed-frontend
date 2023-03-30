@@ -97,7 +97,6 @@ const FeedCard = (props) => {
     }
   };
 
-
   return (
     <>
       <CardStyled>
@@ -174,16 +173,17 @@ const FeedCard = (props) => {
             <FavoriteIcon style={{ marginRight: 20 }} />
             <span style={{ fontSize: '20px' }}>{feedLikeNum}</span>
           </IconButton>
-          <ExpandMore
-            expand={expanded}
+          <IconButton
+            disableFocusRipple
+            disableRipple
             onClick={expandClickHandler}
             style={{ position: 'absolute', left: '1300px' }}
             aria-expanded={expanded}
             aria-label="see and send comments"
           >
-            <MapsUgcIcon style={{ marginRight: 20 }} />
+            <ExpandMore style={{ marginRight: 20 }} expand={expanded} />
             <span style={{ fontSize: '20px' }}>{commentNum}</span>
-          </ExpandMore>
+          </IconButton>
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>

@@ -2,6 +2,8 @@ import { styled } from '@mui/system';
 
 import Card from '@mui/material/Card';
 import IconButton from '@mui/material/IconButton';
+import MapsUgcIcon from '@mui/icons-material/MapsUgc';
+
 
 const CardStyled = styled(Card)({
   maxHeight: '2000px',
@@ -17,7 +19,7 @@ const CardStyled = styled(Card)({
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
-  return <IconButton {...other} />;
+  return <MapsUgcIcon {...other} />;
 })(({ theme, expand }) => ({
   transform: !expand ? 'rotate(0deg)' : 'rotate(-90deg)',
   marginLeft: 'auto',
