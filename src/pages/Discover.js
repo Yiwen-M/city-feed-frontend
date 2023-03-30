@@ -11,7 +11,7 @@ import { CardStyled } from '../components/UI/FeedCard/FeedCardStyles';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import Skeleton from '@mui/material/Skeleton';
-import TextField from '@mui/material/TextField';
+import { height } from '@mui/system';
 
 const Discover = () => {
   const [feedList, setFeedList] = useState([]);
@@ -35,6 +35,13 @@ const Discover = () => {
         throw new Error('Something went wrong, please refresh the page!');
       }
       const data = await response.json();
+      data.feedList.forEach((feed) => {
+        if (feed.region == 'seattle') {
+          feed.region = 'Seattle';
+        } else if (feed.region == 'losangeles') {
+          feed.region = 'Los Angeles';
+        }
+      });
       setFeedList(data.feedList);
       setIsLoading(false);
     };

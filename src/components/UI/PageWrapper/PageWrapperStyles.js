@@ -9,7 +9,6 @@ const WrapperDiv = styled(`div`)({
   top: '5rem',
   backgroundColor: 'none',
   paddingTop: '100px',
-  paddingBottom: '500px',
 });
 
 

@@ -49,6 +49,13 @@ const UserProfile = () => {
         setUserDetail(data.userDetails);
       } else if (data.feedList) {
         console.log(data.feedList);
+        data.feedList.forEach((feed) => {
+          if (feed.region == 'seattle') {
+            feed.region = 'Seattle';
+          } else if (feed.region == 'losangeles') {
+            feed.region = 'Los Angeles';
+          }
+        });
         setFavList(data.feedList);
       }
       setIsLoading(false);
