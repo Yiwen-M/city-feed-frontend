@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 
 import { API_KEY, GET_USER_FEED_LIST_URL } from '../keys';
 import AuthProvider, {
@@ -144,6 +144,9 @@ const Signin = () => {
             </Card>
           </div>
         </AuthIsNotSignedIn>
+        <AuthIsSignedIn>
+          <Navigate to="/discover" />;
+        </AuthIsSignedIn>
       </AuthProvider>
     </>
   );
