@@ -48,7 +48,7 @@ export async function getSession() {
   });
 }
 
-export async function signInWithEmail(username, password) {
+export async function signInWithUsername(username, password) {
   return new Promise(function (resolve, reject) {
     const authenticationData = {
       Username: username,

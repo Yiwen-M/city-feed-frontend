@@ -7,7 +7,7 @@ import Setting from './pages/Setting';
 import UserProfile from './pages/UserProfile';
 import NotFound from './pages/NotFound';
 import CreatePost from './pages/CreatePost';
-import TempLogin from './pages/TempLogin';
+import Signin from './pages/Signin';
 
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
@@ -30,7 +30,7 @@ function App() {
           <Route path="/setting" element={<Setting />} />
           <Route path="/userProfile" element={<UserProfile />} />
           <Route path="/createPost" element={<CreatePost />} />
-          <Route path="/login" element={<TempLogin />} />
+          <Route path="/signin" element={<Signin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ThemeProvider>

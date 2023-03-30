@@ -59,9 +59,9 @@ const AuthProvider = ({ children }) => {
     return null;
   }
 
-  async function signInWithEmail(username, password) {
+  async function signInWithUsername(username, password) {
     try {
-      await cognito.signInWithEmail(username, password);
+      await cognito.signInWithUsername(username, password);
       setAuthStatus(AuthStatus.SignedIn);
     } catch (err) {
       setAuthStatus(AuthStatus.SignedOut);
@@ -105,7 +105,7 @@ const AuthProvider = ({ children }) => {
     authStatus,
     sessionInfo,
     attrInfo,
-    signInWithEmail,
+    signInWithUsername,
     signOut,
     getSession,
     getAttributes,
