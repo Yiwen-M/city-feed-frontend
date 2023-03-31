@@ -3,7 +3,6 @@ import { styled } from '@mui/system';
 import Card from '@mui/material/Card';
 import MapsUgcIcon from '@mui/icons-material/MapsUgc';
 
-
 const CardStyled = styled(Card)({
   maxHeight: '2000px',
   width: '1200px',

@@ -32,93 +32,89 @@ import {
 
 const menuItems = [
   {
-    linkiId: 'link1',
+    linkId: 'link1',
     url: '/discover',
     text: 'Discover',
     icon: <DiscoverIcon />,
   },
   {
-    linkiId: 'link2',
+    linkId: 'link2',
     url: '/following',
     text: 'Following',
     icon: <FollowIcon />,
   },
   {
-    linkiId: 'link3',
+    linkId: 'link3',
     url: '/messageCenter',
     text: 'Message Center',
     icon: <MessageIcon />,
   },
   {
-    linkiId: 'link4',
+    linkId: 'link4',
     url: '/setting',
     text: 'Setting',
     icon: <SettingIcon />,
   },
 ];
 
-const Header = (props) => {
+const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const menuOpenHandler = () => {
-    setMenuOpen(true);
-  };
-
-  const menuCloseHandler = () => {
-    setMenuOpen(false);
-  };
-
-  let navigate = useNavigate();
-
-  const siteNameRouteHandler = () => {
-    let path = '/discover';
-    navigate(path);
-  };
-
-  const userIconRouteHandler = () => {
-    let path = '/userProfile';
-    navigate(path);
-  };
-
-  const createIconRouteHandler = () => {
-    let path = '/createPost';
-    navigate(path);
-  };
 
   const { authStatus } = useContext(AuthContext);
 
-  let rightHeaderContent = (
-    <>
-      <CreateIcon onClick={createIconRouteHandler} />
-      <ProfileIcon onClick={userIconRouteHandler} />
-    </>
-  );
+  let navigate = useNavigate();
 
-  if (authStatus === AuthStatus.SignedIn) {
-    // user is signed in
-    rightHeaderContent = (
-      <>
-        <CreateIcon
-          onClick={createIconRouteHandler}
-          style={{ right: '15rem' }}
-        />
-        <ProfileIcon onClick={userIconRouteHandler} style={{ right: '9rem' }} />
-        <SignOutButton />
-      </>
-    );
-  } else {
-    // user is not signed in
-    rightHeaderContent = (
-      <>
-        <CreateIcon onClick={createIconRouteHandler} />
-        <ProfileIcon onClick={userIconRouteHandler} />
-      </>
-    );
-  }
+  const menuOpenHandler = () => setMenuOpen(true);
+  const menuCloseHandler = () => setMenuOpen(false);
 
-  const menuBtnArr = menuItems.map((item) => {
-    return (
-      <List key={item.linkiId}>
+  const siteNameRouteHandler = () => navigate('/discover');
+  const userIconRouteHandler = () => navigate('/userProfile');
+  const createIconRouteHandler = () => navigate('/createPost');
+
+  const renderSiteName = () => {
+    if (menuOpen) {
+      return (
+        <SiteNameWhenMenuOpen onClick={siteNameRouteHandler}>
+          City Feed
+        </SiteNameWhenMenuOpen>
+      );
+    } else {
+      return (
+        <SiteNameWhenMenuClosed onClick={siteNameRouteHandler}>
+          City Feed
+        </SiteNameWhenMenuClosed>
+      );
+    }
+  };
+
+  const renderHeaderContent = () => {
+    if (authStatus === AuthStatus.SignedIn) {
+      return (
+        <>
+          <CreateIcon
+            onClick={createIconRouteHandler}
+            style={{ right: '15rem' }}
+          />
+          <ProfileIcon
+            onClick={userIconRouteHandler}
+            style={{ right: '9rem' }}
+          />
+          <SignOutButton />
+        </>
+      );
+    } else {
+      return (
+        <>
+          <CreateIcon onClick={createIconRouteHandler} />
+          <ProfileIcon onClick={userIconRouteHandler} />
+        </>
+      );
+    }
+  };
+
+  const renderMenuButtons = () =>
+    menuItems.map((item) => (
+      <List key={item.linkId}>
         <ListItem disablePadding sx={{ display: 'block' }}>
           <ListItemButton
             component={Link}
@@ -129,21 +125,12 @@ const Header = (props) => {
               px: 9,
             }}
           >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: menuOpen ? 6 : 'auto',
-              }}
-            >
+            <ListItemIcon sx={{ minWidth: 0, mr: menuOpen ? 6 : 'auto' }}>
               {item.icon}
             </ListItemIcon>
-
             <ListItemText
               primary={item.text}
-              primaryTypographyProps={{
-                fontSize: '20px',
-                fontWeight: 'bold',
-              }}
+              primaryTypographyProps={{ fontSize: '20px', fontWeight: 'bold' }}
               sx={{
                 color: '#aebdca',
                 opacity: menuOpen ? 1 : 0,
@@ -152,8 +139,7 @@ const Header = (props) => {
           </ListItemButton>
         </ListItem>
       </List>
-    );
-  });
+    ));
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -173,17 +159,8 @@ const Header = (props) => {
           >
             <SideMenuIcon />
           </IconButton>
-          {!menuOpen && (
-            <SiteNameWhenMenuClosed onClick={siteNameRouteHandler}>
-              City Feed
-            </SiteNameWhenMenuClosed>
-          )}
-          {menuOpen && (
-            <SiteNameWhenMenuOpen onClick={siteNameRouteHandler}>
-              City Feed
-            </SiteNameWhenMenuOpen>
-          )}
-          {rightHeaderContent}
+          {menuOpen ? null : renderSiteName()}
+          {renderHeaderContent()}
         </HeaderStyled>
       </HeaderBar>
 
@@ -197,8 +174,7 @@ const Header = (props) => {
             <CloseMenuIcon />
           </IconButton>
         </MenuHeader>
-
-        {[...menuBtnArr]}
+        {[...renderMenuButtons()]}
       </MenuBox>
     </Box>
   );

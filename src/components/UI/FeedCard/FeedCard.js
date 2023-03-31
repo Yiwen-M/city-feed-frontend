@@ -81,7 +81,7 @@ const FeedCard = (props) => {
     const curStatus = feedLikeStatus === '0' ? '1' : '0';
     setFeedLikeStatus(curStatus);
     const likeFeedBody = {
-      userId: 'testUser',
+      userId: localStorage.getItem('username'),
       feedId: feedId,
       like: curStatus,
     };

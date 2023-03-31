@@ -10,7 +10,7 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-const CreateForm = (props) => {
+const CreateForm = () => {
   const date = new Date().toLocaleString(); //to show on preview
   const timestamp = Date.parse(date).toString(); //to pass to backend
 
@@ -121,7 +121,7 @@ const CreateForm = (props) => {
 
   const submitHandler = async () => {
     const postContent = {
-      userId: 'testUser',
+      userId: localStorage.getItem('username'),
       title: title,
       content: content,
       timestamp: timestamp,
