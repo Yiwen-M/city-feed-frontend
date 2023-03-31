@@ -39,7 +39,7 @@ const Discover = () => {
       } else {
         const tokenSession = await authContext.getSession();
         const token = tokenSession.idToken.jwtToken;
-        console.log(`idToken: ----`, toekn);
+        console.log(`idToken: ----`, token);
         response = await fetch(
           GET_USER_FEED_LIST_URL +
             new URLSearchParams(getFeedListParams).toString(),
@@ -56,11 +56,10 @@ const Discover = () => {
         throw new Error('Something went wrong, please refresh the page!');
       }
       const data = await response.json();
-      console.log(data);
       data.feedList.forEach((feed) => {
-        if (feed.region == 'seattle') {
+        if (feed.region === 'seattle') {
           feed.region = 'Seattle';
-        } else if (feed.region == 'losangeles') {
+        } else if (feed.region === 'losangeles') {
           feed.region = 'Los Angeles';
         }
       });

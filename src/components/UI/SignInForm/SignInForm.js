@@ -32,6 +32,7 @@ const SignInForm = () => {
     e.preventDefault();
     console.log('Username:', username);
     console.log('Password:', password);
+    localStorage.setItem('username', username);
     try {
       await authContext.signInWithUsername(username, password);
       let path = '/discover';
