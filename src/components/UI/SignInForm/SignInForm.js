@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { API_KEY, GET_USER_FEED_LIST_URL } from '../../../keys';
 import { AuthContext } from '../../../contexts/AuthContext';
 
 import {
@@ -21,36 +20,13 @@ import {
   Button,
 } from '@mui/material';
 
-const getUserFeedListParams = { region: 'seattle' };
-
 const SignInForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [userFeedList, setUserFeedList] = useState([]);
 
   const authContext = useContext(AuthContext);
 
   let navigate = useNavigate();
-
-  const getUserFeedListHandler = async () => {
-    const tokenSession = await authContext.getSession();
-    const token = tokenSession.idToken.jwtToken;
-    console.log('idToken: ----', token);
-    const response = await fetch(
-      GET_USER_FEED_LIST_URL +
-        new URLSearchParams(getUserFeedListParams).toString(),
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'x-api-key': API_KEY,
-        },
-      }
-    );
-    const data = await response.json();
-    console.log('Data: ', data);
-    setUserFeedList(data.feedList);
-  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -58,7 +34,6 @@ const SignInForm = () => {
     console.log('Password:', password);
     try {
       await authContext.signInWithUsername(username, password);
-      getUserFeedListHandler();
       let path = '/discover';
       navigate(path);
     } catch (err) {}

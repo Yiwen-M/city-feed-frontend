@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
-import { GET_FEED_URL, API_KEY } from '../keys';
+import { GET_FEED_URL, GET_USER_FEED_LIST_URL, API_KEY } from '../keys';
+import { AuthContext, AuthStatus } from '../contexts/AuthContext';
 
 import Header from '../components/UI/Header/Header';
 import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
@@ -17,23 +18,45 @@ const Discover = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const authContext = useContext(AuthContext);
+  const { authStatus } = authContext;
+
   const getFeedListParams = { region: 'seattle', userId: 'testUser' };
 
   useEffect(() => {
     const getFeedListHandler = async () => {
       setIsLoading(true);
       setError(null);
-      const response = await fetch(
-        GET_FEED_URL + new URLSearchParams(getFeedListParams).toString(),
-        {
-          method: 'GET',
-          headers: { 'x-api-key': API_KEY },
-        }
-      );
+      let response = '';
+      if (authStatus !== AuthStatus.SignedIn) {
+        response = await fetch(
+          GET_FEED_URL + new URLSearchParams(getFeedListParams).toString(),
+          {
+            method: 'GET',
+            headers: { 'x-api-key': API_KEY },
+          }
+        );
+      } else {
+        const tokenSession = await authContext.getSession();
+        const token = tokenSession.idToken.jwtToken;
+        console.log(`idToken: ----`, toekn);
+        response = await fetch(
+          GET_USER_FEED_LIST_URL +
+            new URLSearchParams(getFeedListParams).toString(),
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'x-api-key': API_KEY,
+            },
+          }
+        );
+      }
       if (!response.ok) {
         throw new Error('Something went wrong, please refresh the page!');
       }
       const data = await response.json();
+      console.log(data);
       data.feedList.forEach((feed) => {
         if (feed.region == 'seattle') {
           feed.region = 'Seattle';
@@ -44,8 +67,8 @@ const Discover = () => {
       setFeedList(data.feedList);
       setIsLoading(false);
     };
-    getFeedListHandler().catch(console.error);
-  }, []);
+    getFeedListHandler().catch((err) => setError(err.message));
+  }, [authContext, authStatus]);
 
   let pageContent = (
     <CardStyled>
@@ -145,9 +168,7 @@ const Discover = () => {
   return (
     <>
       <Header />
-      <PageWrapper>
-        {pageContent} 
-      </PageWrapper>
+      <PageWrapper>{pageContent}</PageWrapper>
     </>
   );
 };
