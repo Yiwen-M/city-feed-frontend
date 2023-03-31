@@ -83,11 +83,14 @@ const FeedCard = (props) => {
       like: curStatus,
     };
     try {
+      const tokenSession = await authContext.getSession();
+      const token = tokenSession.idToken.jwtToken;
       const response = await fetch(LIKE_FEED_URL, {
         method: 'POST',
         body: JSON.stringify(likeFeedBody),
         headers: {
           'content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
           'x-api-key': API_KEY,
         },
       });

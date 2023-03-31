@@ -132,11 +132,14 @@ const CreateForm = () => {
       media: imgTypeAndBase64,
     };
     try {
+      const tokenSession = await authContext.getSession();
+      const token = tokenSession.idToken.jwtToken;
       const response = await fetch(POST_FEED_URL, {
         method: 'POST',
         body: JSON.stringify(postContent),
         headers: {
           'content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
           'x-api-key': API_KEY,
         },
       });
