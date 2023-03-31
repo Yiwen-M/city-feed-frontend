@@ -21,8 +21,7 @@ const Discover = () => {
   const authContext = useContext(AuthContext);
   const { authStatus } = authContext;
 
-  const DEFAULT_GET_FEED_LIST_PARAMS = { region: 'seattle', userId: 'testUser' };
-
+  const DEFAULT_GET_FEED_LIST_PARAMS = { region: 'seattle' };
 
   useEffect(() => {
     const getFeedListHandler = async () => {
@@ -31,7 +30,8 @@ const Discover = () => {
       let response = '';
       if (authStatus !== AuthStatus.SignedIn) {
         response = await fetch(
-          GET_FEED_URL + new URLSearchParams(DEFAULT_GET_FEED_LIST_PARAMS).toString(),
+          GET_FEED_URL +
+            new URLSearchParams(DEFAULT_GET_FEED_LIST_PARAMS).toString(),
           {
             method: 'GET',
             headers: { 'x-api-key': API_KEY },
