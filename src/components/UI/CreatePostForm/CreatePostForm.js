@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { POST_FEED_URL, API_KEY } from '../../../keys';
+import { AuthContext } from '../../../contexts/AuthContext';
 
 import MediaFileUpload from './MediaFileUpload/MediaFileUpload';
 import FeedDetails from './FeedDetails/FeedDetails';
@@ -10,7 +11,7 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-const CreateForm = (props) => {
+const CreateForm = () => {
   const date = new Date().toLocaleString(); //to show on preview
   const timestamp = Date.parse(date).toString(); //to pass to backend
 
@@ -25,6 +26,8 @@ const CreateForm = (props) => {
   const [content, setContent] = useState(''); //to pass to backend
 
   const [showFailMessage, setShowFailMessage] = useState(false);
+
+  const authContext = useContext(AuthContext);
 
   const nextStep = () => {
     const curStep = step;
@@ -121,7 +124,7 @@ const CreateForm = (props) => {
 
   const submitHandler = async () => {
     const postContent = {
-      userId: 'testUser',
+      userId: authContext.getUserInfo().username,
       title: title,
       content: content,
       timestamp: timestamp,
@@ -129,11 +132,14 @@ const CreateForm = (props) => {
       media: imgTypeAndBase64,
     };
     try {
+      const tokenSession = await authContext.getSession();
+      const token = tokenSession.idToken.jwtToken;
       const response = await fetch(POST_FEED_URL, {
         method: 'POST',
         body: JSON.stringify(postContent),
         headers: {
           'content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
           'x-api-key': API_KEY,
         },
       });

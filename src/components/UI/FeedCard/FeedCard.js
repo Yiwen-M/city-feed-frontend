@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import { LIKE_FEED_URL, API_KEY } from '../../../keys';
+import { AuthContext, AuthStatus } from '../../../contexts/AuthContext';
 
 import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';
@@ -13,7 +14,6 @@ import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import MapsUgcIcon from '@mui/icons-material/MapsUgc';
 import Snackbar from '@mui/material/Snackbar';
 import CloseIcon from '@mui/icons-material/Close';
 import { pink } from '@mui/material/colors';
@@ -41,6 +41,9 @@ const FeedCard = (props) => {
   const [disableLikeBtn, setDisableLikeBtn] = useState(false);
   const [showFailMessage, setShowFailMessage] = useState(false);
 
+  const authContext = useContext(AuthContext);
+  const { authStatus } = useContext(AuthContext);
+
   const expandClickHandler = () => {
     setExpanded(!expanded);
   };
@@ -63,28 +66,31 @@ const FeedCard = (props) => {
     </IconButton>
   );
 
-  const clickLikeHandler = () => {
-    likeFeedHandler();
+  const likeFeedHandler = async () => {
+    if (authStatus !== AuthStatus.SignedIn) {
+      alert('Please sign in to like this post.');
+      return;
+    }
     setDisableLikeBtn(true);
     setTimeout(() => {
       setDisableLikeBtn(false);
     }, 2000);
-  };
-
-  const likeFeedHandler = async () => {
     const curStatus = feedLikeStatus === '0' ? '1' : '0';
     setFeedLikeStatus(curStatus);
     const likeFeedBody = {
-      userId: 'testUser',
+      userId: authContext.getUserInfo().username,
       feedId: feedId,
       like: curStatus,
     };
     try {
+      const tokenSession = await authContext.getSession();
+      const token = tokenSession.idToken.jwtToken;
       const response = await fetch(LIKE_FEED_URL, {
         method: 'POST',
         body: JSON.stringify(likeFeedBody),
         headers: {
           'content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
           'x-api-key': API_KEY,
         },
       });
@@ -165,7 +171,7 @@ const FeedCard = (props) => {
             disableFocusRipple
             disableRipple
             aria-label="add to favorites"
-            onClick={clickLikeHandler}
+            onClick={likeFeedHandler}
             style={{ position: 'absolute', left: '1125px' }}
             sx={{ color: feedLikeStatus === '1' ? pink[500] : 'action' }}
             disabled={disableLikeBtn}
@@ -173,16 +179,17 @@ const FeedCard = (props) => {
             <FavoriteIcon style={{ marginRight: 20 }} />
             <span style={{ fontSize: '20px' }}>{feedLikeNum}</span>
           </IconButton>
-          <ExpandMore
-            expand={expanded}
+          <IconButton
+            disableFocusRipple
+            disableRipple
             onClick={expandClickHandler}
             style={{ position: 'absolute', left: '1300px' }}
             aria-expanded={expanded}
             aria-label="see and send comments"
           >
-            <MapsUgcIcon style={{ marginRight: 20 }} />
+            <ExpandMore style={{ marginRight: 20 }} expand={expanded} />
             <span style={{ fontSize: '20px' }}>{commentNum}</span>
-          </ExpandMore>
+          </IconButton>
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>

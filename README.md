@@ -18,7 +18,7 @@
 
 ## Key Features
 
-* User signup, login and logout
+* User sign-up, sign-in and sign-out
 * Update username, photo, email, and change password
 * Browse and create posts about information around the city users live in
 * Follow and unfollow other users

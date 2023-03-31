@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
+import { AuthContext, AuthStatus } from '../../../contexts/AuthContext';
+import SignOutButton from '../SignOutButton/SignOutButton';
 
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -29,62 +32,89 @@ import {
 
 const menuItems = [
   {
-    linkiId: 'link1',
+    linkId: 'link1',
     url: '/discover',
     text: 'Discover',
     icon: <DiscoverIcon />,
   },
   {
-    linkiId: 'link2',
+    linkId: 'link2',
     url: '/following',
     text: 'Following',
     icon: <FollowIcon />,
   },
   {
-    linkiId: 'link3',
+    linkId: 'link3',
     url: '/messageCenter',
     text: 'Message Center',
     icon: <MessageIcon />,
   },
   {
-    linkiId: 'link4',
+    linkId: 'link4',
     url: '/setting',
     text: 'Setting',
     icon: <SettingIcon />,
   },
 ];
 
-const SideMenu = (props) => {
+const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const menuOpenHandler = () => {
-    setMenuOpen(true);
-  };
-
-  const menuCloseHandler = () => {
-    setMenuOpen(false);
-  };
+  const { authStatus } = useContext(AuthContext);
 
   let navigate = useNavigate();
 
-  const siteNameRouteHandler = () => {
-    let path = '/discover';
-    navigate(path);
+  const menuOpenHandler = () => setMenuOpen(true);
+  const menuCloseHandler = () => setMenuOpen(false);
+
+  const siteNameRouteHandler = () => navigate('/discover');
+  const userIconRouteHandler = () => navigate('/userProfile');
+  const createIconRouteHandler = () => navigate('/createPost');
+
+  const renderSiteName = () => {
+    if (menuOpen) {
+      return (
+        <SiteNameWhenMenuOpen onClick={siteNameRouteHandler}>
+          City Feed
+        </SiteNameWhenMenuOpen>
+      );
+    } else {
+      return (
+        <SiteNameWhenMenuClosed onClick={siteNameRouteHandler}>
+          City Feed
+        </SiteNameWhenMenuClosed>
+      );
+    }
   };
 
-  const userIconRouteHandler = () => {
-    let path = '/userProfile';
-    navigate(path);
+  const renderHeaderContent = () => {
+    if (authStatus === AuthStatus.SignedIn) {
+      return (
+        <>
+          <CreateIcon
+            onClick={createIconRouteHandler}
+            style={{ right: '15rem' }}
+          />
+          <ProfileIcon
+            onClick={userIconRouteHandler}
+            style={{ right: '9rem' }}
+          />
+          <SignOutButton />
+        </>
+      );
+    } else {
+      return (
+        <>
+          <CreateIcon onClick={createIconRouteHandler} />
+          <ProfileIcon onClick={userIconRouteHandler} />
+        </>
+      );
+    }
   };
 
-  const createIconRouteHandler = () => {
-    let path = '/createPost';
-    navigate(path);
-  };
-
-  const menuBtnArr = menuItems.map((item) => {
-    return (
-      <List key={item.linkiId}>
+  const renderMenuButtons = () =>
+    menuItems.map((item) => (
+      <List key={item.linkId}>
         <ListItem disablePadding sx={{ display: 'block' }}>
           <ListItemButton
             component={Link}
@@ -95,21 +125,12 @@ const SideMenu = (props) => {
               px: 9,
             }}
           >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: menuOpen ? 6 : 'auto',
-              }}
-            >
+            <ListItemIcon sx={{ minWidth: 0, mr: menuOpen ? 6 : 'auto' }}>
               {item.icon}
             </ListItemIcon>
-
             <ListItemText
               primary={item.text}
-              primaryTypographyProps={{
-                fontSize: '20px',
-                fontWeight: 'bold',
-              }}
+              primaryTypographyProps={{ fontSize: '20px', fontWeight: 'bold' }}
               sx={{
                 color: '#aebdca',
                 opacity: menuOpen ? 1 : 0,
@@ -118,8 +139,7 @@ const SideMenu = (props) => {
           </ListItemButton>
         </ListItem>
       </List>
-    );
-  });
+    ));
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -139,18 +159,8 @@ const SideMenu = (props) => {
           >
             <SideMenuIcon />
           </IconButton>
-          {!menuOpen && (
-            <SiteNameWhenMenuClosed onClick={siteNameRouteHandler}>
-              City Feed
-            </SiteNameWhenMenuClosed>
-          )}
-          {menuOpen && (
-            <SiteNameWhenMenuOpen onClick={siteNameRouteHandler}>
-              City Feed
-            </SiteNameWhenMenuOpen>
-          )}
-          <CreateIcon onClick={createIconRouteHandler}/>
-          <ProfileIcon onClick={userIconRouteHandler} />
+          {menuOpen ? null : renderSiteName()}
+          {renderHeaderContent()}
         </HeaderStyled>
       </HeaderBar>
 
@@ -164,11 +174,10 @@ const SideMenu = (props) => {
             <CloseMenuIcon />
           </IconButton>
         </MenuHeader>
-
-        {[...menuBtnArr]}
+        {[...renderMenuButtons()]}
       </MenuBox>
     </Box>
   );
 };
 
-export default SideMenu;
+export default Header;

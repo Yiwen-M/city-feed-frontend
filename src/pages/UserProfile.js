@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 
 import { GET_USER_URL, GET_FAV_LIST_URL, API_KEY } from '../keys';
+import { AuthContext } from '../contexts/AuthContext';
 
 import Header from '../components/UI/Header/Header';
 import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
@@ -22,18 +23,22 @@ const UserProfile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const curUserId = 'testUser'; //hard coded for now
-  const curFollower = 0; //hard coded for now
-  const curFollowing = 0; //hard coded for now
-  const getUserDetailParams = { userId: 'testUser' };
+  const authContext = useContext(AuthContext);
+
+  const curUserId = authContext.getUserInfo().username;
+  const DEFAULT_FOLLOWER_COUNT = 0;
+  const DEFAULT_FOLLOWING_COUNT = 0;
+  const DEFAULT_GET_USER_DETAIL_PARAMS = { userId: curUserId };
 
   useEffect(() => {
     const getUserDetailHandler = async () => {
-      const curURL = tabValue == 0 ? GET_USER_URL : GET_FAV_LIST_URL;
+      const curURL = tabValue === 0 ? GET_USER_URL : GET_FAV_LIST_URL;
       setIsLoading(true);
       setError(null);
       const response = await fetch(
-        curURL + new URLSearchParams(getUserDetailParams).toString(),
+        `${curURL}${new URLSearchParams(
+          DEFAULT_GET_USER_DETAIL_PARAMS
+        ).toString()}`,
         {
           method: 'GET',
           headers: { 'x-api-key': API_KEY },
@@ -44,16 +49,21 @@ const UserProfile = () => {
       }
       const data = await response.json();
       if (data.userDetails) {
-        console.log(data.userDetails);
         localStorage.setItem('avatar', data.userDetails.avatar);
         setUserDetail(data.userDetails);
       } else if (data.feedList) {
-        console.log(data.feedList);
+        data.feedList.forEach((feed) => {
+          if (feed.region === 'seattle') {
+            feed.region = 'Seattle';
+          } else if (feed.region === 'losangeles') {
+            feed.region = 'Los Angeles';
+          }
+        });
         setFavList(data.feedList);
       }
       setIsLoading(false);
     };
-    getUserDetailHandler().catch(console.error);
+    getUserDetailHandler().catch((err) => setError(err.message));
   }, [tabValue]);
 
   const changeTabHandler = (event, newTabValue) => {
@@ -149,13 +159,6 @@ const UserProfile = () => {
 
   if (isLoading) {
     pageContent = (
-      // <div style={{ marginTop: '180px', marginLeft: '750px' }}>
-      //   <CircularProgress
-      //     size="10rem"
-      //     thickness={2}
-      //     sx={{ color: '#aebdca' }}
-      //   />
-      // </div>
       <CardStyled>
         <CardHeader
           avatar={
@@ -194,8 +197,8 @@ const UserProfile = () => {
         <UserProfileCard
           avatar={localStorage.getItem('avatar')}
           userId={curUserId}
-          following={curFollowing}
-          follower={curFollower}
+          following={DEFAULT_FOLLOWING_COUNT}
+          follower={DEFAULT_FOLLOWER_COUNT}
         />
         <Tabs
           value={tabValue}

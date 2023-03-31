@@ -7,7 +7,7 @@ const CardStyled = styled(Card)({
   width: '1200px',
   color: 'white',
   paddingLeft: '100px',
-  paddingTop:'30px',
+  paddingTop: '30px',
   marginLeft: '300px',
   marginBottom: '40px',
   borderRadius: '20px',

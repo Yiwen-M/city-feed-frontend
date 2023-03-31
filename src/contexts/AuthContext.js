@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from 'react';
 
-import * as cognito from "../lib/cognito";
+import * as cognito from '../lib/cognito';
 
 export const AuthStatus = {
   Loading: 0,
@@ -40,9 +40,12 @@ const AuthProvider = ({ children }) => {
           idToken: session.idToken.jwtToken,
           refreshToken: session.refreshToken.token,
         });
-        window.localStorage.setItem("idToken", `${session.idToken.jwtToken}`);
         window.localStorage.setItem(
-          "refreshToken",
+          'cityFeedIdToken',
+          `${session.idToken.jwtToken}`
+        );
+        window.localStorage.setItem(
+          'cityFeedRefreshToken',
           `${session.refreshToken.token}`
         );
         const attr = await getAttributes();
@@ -59,9 +62,9 @@ const AuthProvider = ({ children }) => {
     return null;
   }
 
-  async function signInWithEmail(username, password) {
+  async function signInWithUsername(username, password) {
     try {
-      await cognito.signInWithEmail(username, password);
+      await cognito.signInWithUsername(username, password);
       setAuthStatus(AuthStatus.SignedIn);
     } catch (err) {
       setAuthStatus(AuthStatus.SignedOut);
@@ -78,6 +81,15 @@ const AuthProvider = ({ children }) => {
     try {
       const session = await cognito.getSession();
       return session;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  function getUserInfo() {
+    try {
+      const userInfo = cognito.getCurrentUser();
+      return userInfo;
     } catch (err) {
       throw err;
     }
@@ -105,9 +117,10 @@ const AuthProvider = ({ children }) => {
     authStatus,
     sessionInfo,
     attrInfo,
-    signInWithEmail,
+    signInWithUsername,
     signOut,
     getSession,
+    getUserInfo,
     getAttributes,
     setAttribute,
   };
