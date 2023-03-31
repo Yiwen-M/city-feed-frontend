@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import { LIKE_FEED_URL, API_KEY } from '../../../keys';
+import { AuthContext, AuthStatus } from '../../../contexts/AuthContext';
 
 import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';
@@ -13,7 +14,6 @@ import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import MapsUgcIcon from '@mui/icons-material/MapsUgc';
 import Snackbar from '@mui/material/Snackbar';
 import CloseIcon from '@mui/icons-material/Close';
 import { pink } from '@mui/material/colors';
@@ -40,6 +40,8 @@ const FeedCard = (props) => {
   const [feedLikeNum, setFeedLikeNum] = useState(likeNum);
   const [disableLikeBtn, setDisableLikeBtn] = useState(false);
   const [showFailMessage, setShowFailMessage] = useState(false);
+
+  const { authStatus } = useContext(AuthContext);
 
   const expandClickHandler = () => {
     setExpanded(!expanded);
@@ -72,6 +74,10 @@ const FeedCard = (props) => {
   };
 
   const likeFeedHandler = async () => {
+    if (authStatus !== AuthStatus.SignedIn) {
+      alert('Please sign in to like this post.');
+      return;
+    }
     const curStatus = feedLikeStatus === '0' ? '1' : '0';
     setFeedLikeStatus(curStatus);
     const likeFeedBody = {
