@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { POST_FEED_URL, API_KEY } from '../../../keys';
+import { AuthContext } from '../../../contexts/AuthContext';
 
 import MediaFileUpload from './MediaFileUpload/MediaFileUpload';
 import FeedDetails from './FeedDetails/FeedDetails';
@@ -25,6 +26,8 @@ const CreateForm = () => {
   const [content, setContent] = useState(''); //to pass to backend
 
   const [showFailMessage, setShowFailMessage] = useState(false);
+
+  const authContext = useContext(AuthContext);
 
   const nextStep = () => {
     const curStep = step;
@@ -121,7 +124,7 @@ const CreateForm = () => {
 
   const submitHandler = async () => {
     const postContent = {
-      userId: localStorage.getItem('username'),
+      userId: authContext.getUserInfo().username,
       title: title,
       content: content,
       timestamp: timestamp,

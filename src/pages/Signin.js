@@ -1,13 +1,10 @@
-import { useNavigate, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
-import AuthProvider, {
-  AuthIsSignedIn,
-  AuthIsNotSignedIn,
-} from '../contexts/AuthContext';
+import { AuthIsSignedIn, AuthIsNotSignedIn } from '../contexts/AuthContext';
 
 import SignInForm from '../components/UI/SignInForm/SignInForm';
 
-const Signin = () => {
+const SignIn = () => {
   return (
     <>
       <AuthIsNotSignedIn>
@@ -20,4 +17,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default SignIn;

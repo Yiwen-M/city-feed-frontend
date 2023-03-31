@@ -41,6 +41,7 @@ const FeedCard = (props) => {
   const [disableLikeBtn, setDisableLikeBtn] = useState(false);
   const [showFailMessage, setShowFailMessage] = useState(false);
 
+  const authContext = useContext(AuthContext);
   const { authStatus } = useContext(AuthContext);
 
   const expandClickHandler = () => {
@@ -77,7 +78,7 @@ const FeedCard = (props) => {
     const curStatus = feedLikeStatus === '0' ? '1' : '0';
     setFeedLikeStatus(curStatus);
     const likeFeedBody = {
-      userId: localStorage.getItem('username'),
+      userId: authContext.getUserInfo().username,
       feedId: feedId,
       like: curStatus,
     };

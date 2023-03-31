@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 
 import { GET_USER_URL, GET_FAV_LIST_URL, API_KEY } from '../keys';
+import { AuthContext } from '../contexts/AuthContext';
 
 import Header from '../components/UI/Header/Header';
 import PageWrapper from '../components/UI/PageWrapper/PageWrapper';
@@ -22,7 +23,9 @@ const UserProfile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const curUserId = localStorage.getItem('username');
+  const authContext = useContext(AuthContext);
+
+  const curUserId = authContext.getUserInfo().username;
   const DEFAULT_FOLLOWER_COUNT = 0;
   const DEFAULT_FOLLOWING_COUNT = 0;
   const DEFAULT_GET_USER_DETAIL_PARAMS = { userId: curUserId };

@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import backgroundImage from '../assets/backgroundImage.jpeg';
 
-const SigninReminder = () => {
+const SignInReminder = () => {
   let navigate = useNavigate();
 
   const btnRouteHandler = () => {
@@ -59,4 +59,4 @@ const SigninReminder = () => {
   );
 };
 
-export default SigninReminder;
+export default SignInReminder;

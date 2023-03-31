@@ -12,8 +12,8 @@ import Setting from './pages/Setting';
 import UserProfile from './pages/UserProfile';
 import NotFound from './pages/NotFound';
 import CreatePost from './pages/CreatePost';
-import Signin from './pages/Signin';
-import SigninReminder from './pages/SigninReminder';
+import SignIn from './pages/SignIn';
+import SignInReminder from './pages/SignInReminder';
 
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
@@ -40,7 +40,7 @@ function App() {
                     <Following />
                   </AuthIsSignedIn>
                   <AuthIsNotSignedIn>
-                    <SigninReminder />
+                    <SignInReminder />
                   </AuthIsNotSignedIn>
                 </>
               }
@@ -53,7 +53,7 @@ function App() {
                     <MessageCenter />
                   </AuthIsSignedIn>
                   <AuthIsNotSignedIn>
-                    <SigninReminder />
+                    <SignInReminder />
                   </AuthIsNotSignedIn>
                 </>
               }
@@ -66,7 +66,7 @@ function App() {
                     <Setting />
                   </AuthIsSignedIn>
                   <AuthIsNotSignedIn>
-                    <SigninReminder />
+                    <SignInReminder />
                   </AuthIsNotSignedIn>
                 </>
               }
@@ -79,7 +79,7 @@ function App() {
                     <UserProfile />
                   </AuthIsSignedIn>
                   <AuthIsNotSignedIn>
-                    <SigninReminder />
+                    <SignInReminder />
                   </AuthIsNotSignedIn>
                 </>
               }
@@ -92,12 +92,12 @@ function App() {
                     <CreatePost />
                   </AuthIsSignedIn>
                   <AuthIsNotSignedIn>
-                    <SigninReminder />
+                    <SignInReminder />
                   </AuthIsNotSignedIn>
                 </>
               }
             />
-            <Route path="/signin" element={<Signin />} />
+            <Route path="/signin" element={<SignIn />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

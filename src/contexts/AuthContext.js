@@ -86,6 +86,15 @@ const AuthProvider = ({ children }) => {
     }
   }
 
+  function getUserInfo() {
+    try {
+      const userInfo = cognito.getCurrentUser();
+      return userInfo;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   async function getAttributes() {
     try {
       const attr = await cognito.getAttributes();
@@ -111,6 +120,7 @@ const AuthProvider = ({ children }) => {
     signInWithUsername,
     signOut,
     getSession,
+    getUserInfo,
     getAttributes,
     setAttribute,
   };
