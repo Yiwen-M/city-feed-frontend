@@ -65,19 +65,15 @@ const FeedCard = (props) => {
     </IconButton>
   );
 
-  const clickLikeHandler = () => {
-    likeFeedHandler();
-    setDisableLikeBtn(true);
-    setTimeout(() => {
-      setDisableLikeBtn(false);
-    }, 2000);
-  };
-
   const likeFeedHandler = async () => {
     if (authStatus !== AuthStatus.SignedIn) {
       alert('Please sign in to like this post.');
       return;
     }
+    setDisableLikeBtn(true);
+    setTimeout(() => {
+      setDisableLikeBtn(false);
+    }, 2000);
     const curStatus = feedLikeStatus === '0' ? '1' : '0';
     setFeedLikeStatus(curStatus);
     const likeFeedBody = {
@@ -171,7 +167,7 @@ const FeedCard = (props) => {
             disableFocusRipple
             disableRipple
             aria-label="add to favorites"
-            onClick={clickLikeHandler}
+            onClick={likeFeedHandler}
             style={{ position: 'absolute', left: '1125px' }}
             sx={{ color: feedLikeStatus === '1' ? pink[500] : 'action' }}
             disabled={disableLikeBtn}
