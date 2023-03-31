@@ -40,7 +40,10 @@ const AuthProvider = ({ children }) => {
           idToken: session.idToken.jwtToken,
           refreshToken: session.refreshToken.token,
         });
-        window.localStorage.setItem('cityFeedIdToken', `${session.idToken.jwtToken}`);
+        window.localStorage.setItem(
+          'cityFeedIdToken',
+          `${session.idToken.jwtToken}`
+        );
         window.localStorage.setItem(
           'cityFeedRefreshToken',
           `${session.refreshToken.token}`

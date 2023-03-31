@@ -24,7 +24,7 @@ const titleStyle = {
   width: '100%',
   marginBottom: '10px',
   marginLeft: '120px',
-  color: 'grey',
+  color: 'rgba(96, 120, 137)',
 };
 
 const inputStyle = {
@@ -32,10 +32,11 @@ const inputStyle = {
   marginBottom: '30px',
   marginTop: '5px',
   paddingLeft: '15px',
+  color: 'rgba(96, 120, 137)',
 };
 
 const buttonStyle = {
-  backgroundColor: '#869EB2',
+  backgroundColor: 'rgba(96, 120, 137)',
   marginLeft: '130px',
   marginTop: '20px',
 };

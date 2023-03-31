@@ -81,7 +81,7 @@ const SignInForm = () => {
                 style={inputStyle}
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                sx={{ border: '2px solid #aebdca', borderRadius: 1 }}
+                sx={{ border: '2px solid rgba(96, 120, 137)', borderRadius: 1 }}
                 disableUnderline
               />
               <InputLabel htmlFor="password">Password</InputLabel>
@@ -93,7 +93,7 @@ const SignInForm = () => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                sx={{ border: '2px solid #aebdca', borderRadius: 1 }}
+                sx={{ border: '2px solid rgba(96, 120, 137)', borderRadius: 1 }}
                 disableUnderline
               />
               <Button type="submit" variant="contained" style={buttonStyle}>
