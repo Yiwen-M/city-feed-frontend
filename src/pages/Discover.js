@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useMemo } from 'react';
 
 import { GET_FEED_URL, GET_USER_FEED_LIST_URL, API_KEY } from '../keys';
 import { AuthContext, AuthStatus } from '../contexts/AuthContext';
@@ -19,9 +19,12 @@ const Discover = () => {
   const [error, setError] = useState(null);
 
   const authContext = useContext(AuthContext);
-  const { authStatus } = authContext;
+  const { authStatus, getSession } = authContext;
 
-  const DEFAULT_GET_FEED_LIST_PARAMS = { region: 'seattle' };
+  const DEFAULT_GET_FEED_LIST_PARAMS = useMemo(
+    () => ({ region: 'seattle' }),
+    []
+  );
 
   useEffect(() => {
     const getFeedListHandler = async () => {
@@ -38,7 +41,8 @@ const Discover = () => {
           }
         );
       } else {
-        const tokenSession = await authContext.getSession();
+        console.log(`authStatus: ----`, authStatus);
+        const tokenSession = await getSession();
         const token = tokenSession.idToken.jwtToken;
         console.log(`idToken: ----`, token);
         response = await fetch(
@@ -68,7 +72,7 @@ const Discover = () => {
       setIsLoading(false);
     };
     getFeedListHandler().catch((err) => setError(err.message));
-  }, [authContext, authStatus]);
+  }, [authStatus, getSession, DEFAULT_GET_FEED_LIST_PARAMS]);
 
   let pageContent = (
     <CardStyled>

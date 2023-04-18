@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 
 import * as cognito from '../lib/cognito';
 
@@ -32,6 +32,15 @@ const AuthProvider = ({ children }) => {
   const [sessionInfo, setSessionInfo] = useState({});
   const [attrInfo, setAttrInfo] = useState([]);
 
+  const getSession = useCallback(async () => {
+    try {
+      const session = await cognito.getSession();
+      return session;
+    } catch (err) {
+      throw err;
+    }
+  }, []);
+
   useEffect(() => {
     async function getSessionInfo() {
       try {
@@ -56,11 +65,7 @@ const AuthProvider = ({ children }) => {
       }
     }
     getSessionInfo();
-  }, [setAuthStatus, authStatus]);
-
-  if (authStatus === AuthStatus.Loading) {
-    return null;
-  }
+  }, [authStatus, getSession]);
 
   async function signInWithUsername(username, password) {
     try {
@@ -75,15 +80,6 @@ const AuthProvider = ({ children }) => {
   function signOut() {
     cognito.signOut();
     setAuthStatus(AuthStatus.SignedOut);
-  }
-
-  async function getSession() {
-    try {
-      const session = await cognito.getSession();
-      return session;
-    } catch (err) {
-      throw err;
-    }
   }
 
   function getUserInfo() {
@@ -111,6 +107,10 @@ const AuthProvider = ({ children }) => {
     } catch (err) {
       throw err;
     }
+  }
+
+  if (authStatus === AuthStatus.Loading) {
+    return null;
   }
 
   const state = {

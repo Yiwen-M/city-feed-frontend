@@ -30,8 +30,8 @@ const SignInForm = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log('Username:', username);
-    console.log('Password:', password);
+    // console.log('Username:', username);
+    // console.log('Password:', password);
     try {
       await authContext.signInWithUsername(username, password);
       let path = '/discover';
